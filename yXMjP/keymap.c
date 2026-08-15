@@ -11,6 +11,8 @@
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
 
+void reset_alt_tab();
+
 void reset_alt_tab(){
   unregister_code(KC_LALT);
   is_alt_tab_active = false;
@@ -40,9 +42,9 @@ enum custom_keycodes {
   LOW_OE,
   LOW_UE,
   GER_SZ,
-  CAP_AE,
-  CAP_OE,
-  CAP_UE,
+  UPR_AE,
+  UPR_OE,
+  UPR_UE,
   DOT_SPAC,
   COMA_SPAC,
 };
@@ -83,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CW_TOGG,        KC_QUOTE,       KC_COMMA,       KC_DOT,         KC_P,           KC_Y,           KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_F,           KC_G,           KC_C,           KC_R,           KC_L,           KC_SLASH,       
     DUAL_FUNC_0,    MT(MOD_LALT, KC_A),LT(SYMB, KC_O),    MT(MOD_LSFT, KC_E),MT(MOD_LCTL, KC_U),KC_I,           KC_TRANSPARENT,                                                                 KC_TRANSPARENT, KC_D,           MT(MOD_RCTL, KC_H),MT(MOD_RSFT, KC_T),LT(SYMB, KC_N),    MT(MOD_RALT, KC_S),LT(UTIL, KC_MINUS),
     KC_BSLS,        KC_SCLN,        KC_Q,           KC_J,           KC_K,           KC_X,                                           KC_B,           KC_M,           KC_W,           KC_V,           KC_Z,           KC_EQUAL,       
-    TT(SYMB),          TT(NAVI),          TT(MOUS),          DM_REC1,        MO(UTIL),          DM_PLY1,                                                                                                        DM_PLY2,        MO(UTIL),          DM_REC2,        TT(MOUS),          TT(NAVI),          TT(SYMB),          
+    TT(SYMB),          TT(NAVI),          TT(MOUS),          DM_REC1,        QK_ALT_REPEAT_KEY,          DM_PLY1,                                                                                                        DM_PLY2,        QK_REPEAT_KEY,          DM_REC2,        TT(MOUS),          TT(NAVI),          TT(SYMB),          
     KC_BSPC,        LT(MOUS, KC_DELETE),MT(MOD_LGUI, KC_ESCAPE),                KC_RIGHT_GUI,   LT(NAVI, KC_ENTER),KC_SPACE
   ),
   [SYMB] = LAYOUT_moonlander(
@@ -97,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [UTIL] = LAYOUT_moonlander(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_SYSTEM_POWER,KC_SYSTEM_SLEEP,QK_DEBUG_TOGGLE, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, QK_BOOT,        
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 NOTE_PAD,     QK_DYNAMIC_TAPPING_TERM_UP,LCTL(LSFT(KC_F12)),LALT(LCTL(KC_UP)),LCTL(KC_F12),   KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_TRANSPARENT, EMPT_FUNC,     KC_TRANSPARENT, KC_TRANSPARENT, LCTL(LSFT(KC_GRAVE)),LCTL(LSFT(KC_M)),KC_TRANSPARENT,                                                                 VS_CODE,     QK_DYNAMIC_TAPPING_TERM_PRINT,VS_WIND_LEFT,     TD(DANCE_2),    VS_WIND_RIGHT,     KC_TRANSPARENT, KC_TRANSPARENT, 
+    AC_TOGG,        EMPT_FUNC,     KC_TRANSPARENT, KC_TRANSPARENT, LCTL(LSFT(KC_GRAVE)),LCTL(LSFT(KC_M)),KC_TRANSPARENT,                                                                 VS_CODE,     QK_DYNAMIC_TAPPING_TERM_PRINT,VS_WIND_LEFT,     TD(DANCE_2),    VS_WIND_RIGHT,     KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 QK_DYNAMIC_TAPPING_TERM_DOWN,LCTL(KC_I),     LALT(LCTL(KC_DOWN)),LALT(LCTL(KC_I)),KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, RGB_MODE_FORWARD,                                                                                                RGB_TOG,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     RGB_VAD,        RGB_VAI,        TOGGLE_LAYER_COLOR,                RGB_SLD,        RGB_HUD,        RGB_HUI
@@ -685,7 +687,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_3) ));
     }
     break;
-    case CAP_AE:
+    case UPR_AE:
     if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_6) ));
     }
@@ -695,7 +697,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_4) ));
     }
     break;
-    case CAP_UE:
+    case UPR_UE:
     if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_0) ));
     }
@@ -969,20 +971,17 @@ void matrix_scan_user(void){
 }
 
 // Custom QMK here
-const key_override_t ae_key_override = 
-    ko_make_basic(MOD_MASK_SHIFT, LOW_AE, CAP_AE);
+const key_override_t ae_key_override = ko_make_basic(MOD_MASK_SHIFT, LOW_AE, UPR_AE);
 
-
-const key_override_t oe_key_override = 
-    ko_make_basic(MOD_MASK_SHIFT, LOW_OE, CAP_OE);
+const key_override_t oe_key_override = ko_make_basic(MOD_MASK_SHIFT, LOW_OE, UPR_OE);
     
-const key_override_t ue_key_override = 
-    ko_make_basic(MOD_MASK_SHIFT, LOW_UE, CAP_UE);
+const key_override_t ue_key_override = ko_make_basic(MOD_MASK_SHIFT, LOW_UE, UPR_UE);
 
-const key_override_t **key_overrides = (const key_override_t *[]){
+
+// This globally defines all key overrides to be used
+const key_override_t *key_overrides[] = {
 	&ae_key_override,
   &oe_key_override,
-  &ue_key_override,
-	NULL
+  &ue_key_override
 };
 
