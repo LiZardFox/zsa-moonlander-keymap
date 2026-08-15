@@ -25,7 +25,7 @@ enum layers {
   MOUS,
   GAMP,
   STEN,
-}
+};
 
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
@@ -614,7 +614,7 @@ bool shutdown_user(bool jump_to_bootloader) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (is_alt_tab_active && keycode !== ALT_TAB)
+  if (is_alt_tab_active && keycode != ALT_TAB)
   {
     reset_alt_tab();
   }
@@ -980,7 +980,9 @@ const key_override_t ue_key_override =
     ko_make_basic(MOD_MASK_SHIFT, LOW_UE, CAP_UE);
 
 const key_override_t **key_overrides = (const key_override_t *[]){
-	&delete_key_override,
+	&ae_key_override,
+  &oe_key_override,
+  &ue_key_override,
 	NULL
 };
 
