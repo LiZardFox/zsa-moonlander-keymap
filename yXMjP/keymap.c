@@ -664,7 +664,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case GER_AE:
     if (record->event.pressed) {
-      if((get_mods()&MOD_MASK_SHFT)!=0){
+      if((get_mods()&MOD_MASK_SHIFT)!=0){
         SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_6) ));  
       }
       else
@@ -676,7 +676,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case GER_OE:
     if (record->event.pressed) {
       
-      if((get_mods()&MOD_MASK_SHFT)!=0){
+      if((get_mods()&MOD_MASK_SHIFT)!=0){
         SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_4) ));
       }
       else
@@ -687,7 +687,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case GER_UE:
     if (record->event.pressed) {
-      if((get_mods()&MOD_MASK_SHFT)!=0){
+      if((get_mods()&MOD_MASK_SHIFT)!=0){
         SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_0) ));
       }
       else
