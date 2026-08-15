@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESCAPE,      KC_CAPS,        KC_A,           KC_S,           KC_D,           KC_F,           KC_G,                                                                           KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_NO,          KC_LEFT_CTRL,   KC_Z,           KC_X,           KC_C,           KC_V,                                           KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_NO,          KC_NO,          KC_NO,          KC_LEFT_ALT,    KC_B,           KC_ENTER,                                                                                                       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_LEFT_SHIFT,  KC_SPACE,       MO(MOUS),                          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+    KC_LEFT_SHIFT,  KC_SPACE,       MO(GAMP),                          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [NAVI] = LAYOUT_moonlander(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
@@ -371,9 +371,9 @@ void dance_0_reset(tap_dance_state_t *state, void *user_data);
 void dance_0_finished(tap_dance_state_t *state, void *user_data) {
     dance_state[0].step = dance_step(state);
     switch (dance_state[0].step) {
-        case SINGLE_TAP: layer_move(MOUS); break;
+        case SINGLE_TAP: layer_move(STEN); break;
         case DOUBLE_TAP: layer_move(GAME); break;
-        case DOUBLE_SINGLE_TAP: layer_move(MOUS); break;
+        case DOUBLE_SINGLE_TAP: layer_move(STEN); break;
     }
 }
 
@@ -389,9 +389,9 @@ void dance_1_reset(tap_dance_state_t *state, void *user_data);
 void dance_1_finished(tap_dance_state_t *state, void *user_data) {
     dance_state[1].step = dance_step(state);
     switch (dance_state[1].step) {
-        case SINGLE_TAP: layer_move(MOUS); break;
+        case SINGLE_TAP: layer_move(STEN); break;
         case DOUBLE_TAP: layer_move(GAME); break;
-        case DOUBLE_SINGLE_TAP: layer_move(MOUS); break;
+        case DOUBLE_SINGLE_TAP: layer_move(STEN); break;
     }
 }
 
@@ -443,7 +443,7 @@ void dance_3_finished(tap_dance_state_t *state, void *user_data) {
     dance_state[3].step = dance_step(state);
     switch (dance_state[3].step) {
         case SINGLE_TAP: layer_move(BASE); break;
-        case DOUBLE_TAP: layer_move(MOUS); break;
+        case DOUBLE_TAP: layer_move(STEN); break;
         case DOUBLE_SINGLE_TAP: layer_move(BASE); break;
     }
 }
@@ -494,7 +494,7 @@ void dance_5_finished(tap_dance_state_t *state, void *user_data) {
     dance_state[5].step = dance_step(state);
     switch (dance_state[5].step) {
         case SINGLE_TAP: layer_move(BASE); break;
-        case DOUBLE_TAP: layer_move(MOUS); break;
+        case DOUBLE_TAP: layer_move(STEN); break;
         case DOUBLE_SINGLE_TAP: layer_move(BASE); break;
     }
 }
