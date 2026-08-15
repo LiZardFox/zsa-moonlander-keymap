@@ -31,13 +31,10 @@ enum custom_keycodes {
   VS_CODE,
   VS_WIND_LEFT,
   VS_WIND_RIGHT,
-  LOW_AE,
-  LOW_OE,
-  LOW_UE,
+  GER_AE,
+  GER_OE,
+  GER_UE,
   GER_SZ,
-  UPR_AE,
-  UPR_OE,
-  UPR_UE,
   DOT_SPAC,
   COMA_SPAC,
   SM_SLEP,
@@ -203,9 +200,9 @@ const uint16_t PROGMEM combo51[] = { KC_Q, KC_J, KC_W, KC_V, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, LGUI(KC_DOT)),
     COMBO(combo1, ALT_TAB),
-    COMBO(combo2, LOW_AE),
-    COMBO(combo3, LOW_OE),
-    COMBO(combo4, LOW_UE),
+    COMBO(combo2, GER_AE),
+    COMBO(combo3, GER_OE),
+    COMBO(combo4, GER_UE),
     COMBO(combo5, GER_SZ),
     COMBO(combo6, KC_MEDIA_PLAY_PAUSE),
     COMBO(combo7, TO(GAME)),
@@ -665,39 +662,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING(SS_LCTL(SS_TAP(X_K))SS_DELAY(1)  SS_LCTL(SS_TAP(X_RIGHT)));
     }
     break;
-    case LOW_AE:
+    case GER_AE:
     if (record->event.pressed) {
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_8) ));
+      if((get_mods()&MOD_MASK_SHFT)!=0){
+        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_6) ));  
+      }
+      else
+      {
+        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_8) ));
+      }
     }
     break;
-    case LOW_OE:
+    case GER_OE:
     if (record->event.pressed) {
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_4) SS_TAP(X_KP_6) ));
+      
+      if((get_mods()&MOD_MASK_SHFT)!=0){
+        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_4) ));
+      }
+      else
+      {
+        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_4) SS_TAP(X_KP_6) ));
+      }
     }
     break;
-    case LOW_UE:
+    case GER_UE:
     if (record->event.pressed) {
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_2) ));
+      if((get_mods()&MOD_MASK_SHFT)!=0){
+        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_0) ));
+      }
+      else
+      {
+        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_2) ));
+      }
     }
     break;
     case GER_SZ:
     if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_3) ));
-    }
-    break;
-    case UPR_AE:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_6) ));
-    }
-    break;
-    case UPR_OE:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_4) ));
-    }
-    break;
-    case UPR_UE:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_0) ));
     }
     break;
     case DOT_SPAC:
@@ -712,12 +713,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case SM_POWR:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI("x")"uu");
+      SEND_STRING(SS_LGUI("x") SS_DELAY(5)"uu");
     }
     break;
     case SM_SLEP:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI("x")"us");
+      SEND_STRING(SS_LGUI("x")SS_DELAY(5)"us");
     }
     break;
     case ALT_TAB:
@@ -978,19 +979,4 @@ void matrix_scan_user(void){
     }
   }
 }
-
-// Custom QMK here
-const key_override_t ae_key_override = ko_make_basic(MOD_MASK_SHIFT, LOW_AE, UPR_AE);
-
-const key_override_t oe_key_override = ko_make_basic(MOD_MASK_SHIFT, LOW_OE, UPR_OE);
-    
-const key_override_t ue_key_override = ko_make_basic(MOD_MASK_SHIFT, LOW_UE, UPR_UE);
-
-
-// This globally defines all key overrides to be used
-const key_override_t *key_overrides[] = {
-	&ae_key_override,
-  &oe_key_override,
-  &ue_key_override
-};
 
