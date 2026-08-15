@@ -716,12 +716,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case SM_POWR:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI("x") SS_DELAY(20)"uu");
+      SEND_STRING(SS_LGUI("x") SS_DELAY(100)"u"SS_DELAY(100)"u");
     }
     break;
     case SM_SLEP:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI("x")SS_DELAY(20)"us");
+      SEND_STRING(SS_LGUI("x")SS_DELAY(100)"u"SS_DELAY(100)"s");
     }
     break;
     case ALT_TAB:
