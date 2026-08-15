@@ -11,13 +11,6 @@
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
 
-void reset_alt_tab();
-
-void reset_alt_tab(){
-  unregister_code(KC_LALT);
-  is_alt_tab_active = false;
-}
-
 enum layers {
   BASE,
   SYMB,
@@ -47,6 +40,8 @@ enum custom_keycodes {
   UPR_UE,
   DOT_SPAC,
   COMA_SPAC,
+  SYSTEM_SLEEP,
+  SYSTEM_POWER
 };
 
 
@@ -97,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [UTIL] = LAYOUT_moonlander(
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_SYSTEM_POWER,KC_SYSTEM_SLEEP,QK_DEBUG_TOGGLE, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, QK_BOOT,        
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 SYSTEM_POWER,SYSTEM_SLEEP,QK_DEBUG_TOGGLE, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, QK_BOOT,        
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 NOTE_PAD,     QK_DYNAMIC_TAPPING_TERM_UP,LCTL(LSFT(KC_F12)),LALT(LCTL(KC_UP)),LCTL(KC_F12),   KC_TRANSPARENT, KC_TRANSPARENT, 
     AC_TOGG,        EMPT_FUNC,     KC_TRANSPARENT, KC_TRANSPARENT, LCTL(LSFT(KC_GRAVE)),LCTL(LSFT(KC_M)),KC_TRANSPARENT,                                                                 VS_CODE,     QK_DYNAMIC_TAPPING_TERM_PRINT,VS_WIND_LEFT,     TD(DANCE_2),    VS_WIND_RIGHT,     KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 QK_DYNAMIC_TAPPING_TERM_DOWN,LCTL(KC_I),     LALT(LCTL(KC_DOWN)),LALT(LCTL(KC_I)),KC_TRANSPARENT, KC_TRANSPARENT, 
@@ -615,10 +610,13 @@ bool shutdown_user(bool jump_to_bootloader) {
     return false;
 }
 
+
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (is_alt_tab_active && keycode != ALT_TAB)
   {
-    reset_alt_tab();
+      unregister_code(KC_LALT);
+      is_alt_tab_active = false;
   }
   switch (keycode) {
   case QK_MODS ... QK_MODS_MAX:
@@ -692,7 +690,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_6) ));
     }
     break;
-    case CAP_OE:
+    case UPR_OE:
     if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_4) ));
     }
@@ -710,6 +708,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case COMA_SPAC:
     if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_COMMA)SS_DELAY(5)  SS_TAP(X_SPACE));
+    }
+    break;
+    case SYSTEM_POWER:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LGUI("x")"uu");
+    }
+    break;
+    case SYSTEM_SLEEP:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LGUI("x")"us");
     }
     break;
     case ALT_TAB:
@@ -965,7 +973,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void matrix_scan_user(void){
   if(is_alt_tab_active){
     if(timer_elapsed(alt_tab_timer)>SUPER_ALT_TAB_TIME_ACTIVE){
-      reset_alt_tab();
+        unregister_code(KC_LALT);
+        is_alt_tab_active = false;
     }
   }
 }
