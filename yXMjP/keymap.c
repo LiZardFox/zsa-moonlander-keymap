@@ -679,7 +679,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       
       if((get_mods()&MOD_MASK_SHIFT)!=0){
         clear_mods();
-        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_4) ) SS_DOWN());
+        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_4) ));
       }
       else
       {
