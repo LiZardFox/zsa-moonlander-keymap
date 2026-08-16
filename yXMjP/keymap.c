@@ -15,9 +15,7 @@ uint16_t alt_tab_timer = 0;
 
 
 #ifdef AUDIO_ENABLE
-float megalovania_song[][2] = SONG(MEGALOVANIA);
-float autocorrect_song[][2] = SONG(RENAI_CIRCULATION);
-float dvorak_song[][2] = SONG(DVORAK_SOUND);
+float autocorrect_song[][2] = SONG(NOCTURNE_OP_9_NO_1);
 float caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
 float caps_off[][2] = SONG(CAPS_LOCK_OFF_SOUND);
 float numl_on[][2] = SONG(NUM_LOCK_ON_SOUND);
