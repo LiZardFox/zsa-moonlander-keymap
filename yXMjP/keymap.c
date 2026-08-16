@@ -8,8 +8,21 @@
 #define SUPER_ALT_TAB_TIME_ACTIVE 1000
 #endif
 
+static uint8_t numl_state = 0;
+bool numlock_changed = false;
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
+
+
+#ifdef AUDIO_ENABLE
+float megalovania_song[][2] = SONG(MEGALOVANIA);
+float autocorrect_song[][2] = SONG(RENAI_CIRCULATION);
+float dvorak_song[][2] = SONG(DVORAK_SOUND);
+float caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
+float caps_off[][2] = SONG(CAPS_LOCK_OFF_SOUND);
+float numl_on[][2] = SONG(NUM_LOCK_ON_SOUND);
+float numl_off[][2] = SONG(NUM_LOCK_OFF_SOUND);
+#endif
 
 enum layers {
   BASE,
@@ -38,7 +51,8 @@ enum custom_keycodes {
   DOT_SPAC,
   COMA_SPAC,
   SM_SLEP,
-  SM_POWR
+  SM_POWR,
+  VRSN
 };
 
 
@@ -90,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [UTIL] = LAYOUT_moonlander(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 SM_POWR,SM_SLEP,QK_DEBUG_TOGGLE, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, QK_BOOT,        
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 NOTE_PAD,     QK_DYNAMIC_TAPPING_TERM_UP,LCTL(LSFT(KC_F12)),LALT(LCTL(KC_UP)),LCTL(KC_F12),   KC_TRANSPARENT, KC_TRANSPARENT, 
+    VRSN, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 NOTE_PAD,     QK_DYNAMIC_TAPPING_TERM_UP,LCTL(LSFT(KC_F12)),LALT(LCTL(KC_UP)),LCTL(KC_F12),   KC_TRANSPARENT, KC_TRANSPARENT, 
     AC_TOGG,        EMPT_FUNC,     KC_TRANSPARENT, KC_TRANSPARENT, LCTL(LSFT(KC_GRAVE)),LCTL(LSFT(KC_M)),KC_TRANSPARENT,                                                                 VS_CODE,     QK_DYNAMIC_TAPPING_TERM_PRINT,VS_WIND_LEFT,     TD(DANCE_2),    VS_WIND_RIGHT,     KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 QK_DYNAMIC_TAPPING_TERM_DOWN,LCTL(KC_I),     LALT(LCTL(KC_DOWN)),LALT(LCTL(KC_I)),KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, RGB_MODE_FORWARD,                                                                                                RGB_TOG,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
@@ -133,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,          STN_N1,         STN_N2,         STN_N3,         STN_N4,         STN_N5,         KC_NO,                                          KC_NO,          STN_N6,         STN_N7,         STN_N8,         STN_N9,         STN_NA,         STN_NB,         
     KC_NO,          STN_S1,         STN_TL,         STN_PL,         STN_HL,         STN_ST1,        KC_NO,                                                                          KC_NO,          STN_ST3,        STN_FR,         STN_PR,         STN_LR,         STN_TR,         STN_DR,         
     KC_NO,          STN_S2,         STN_KL,         STN_WL,         STN_RL,         STN_ST2,                                        STN_ST4,        STN_RR,         STN_BR,         STN_GR,         STN_SR,         STN_ZR,         
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    S(ALT_TAB),          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          ALT_TAB,          
     STN_A,          STN_O,          STN_NC,                         STN_NC,         STN_E,          STN_U
   ),
 };
@@ -592,29 +606,15 @@ tap_dance_action_t tap_dance_actions[] = {
 
 
 
-
-bool shutdown_user(bool jump_to_bootloader) {
-    if (jump_to_bootloader) {
-        // red for bootloader
-        rgb_matrix_set_color_all(RGB_RED);
-    } else {
-        // off for soft reset
-        rgb_matrix_set_color_all(RGB_OFF);
-    }
-    // force flushing -- otherwise will never happen
-    rgb_matrix_update_pwm_buffers();
-    // false to not process kb level
-    return false;
-}
-
-
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (is_alt_tab_active && keycode != ALT_TAB)
   {
       unregister_code(KC_LALT);
       is_alt_tab_active = false;
   }
+  bool num_lock = host_keyboard_led_state().num_lock;
+  
+  uint8_t mods = get_mods();
   switch (keycode) {
   case QK_MODS ... QK_MODS_MAX:
     // Mouse and consumer keys (volume, media) with modifiers work inconsistently across operating systems,
@@ -634,7 +634,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case EURO_SIGN:
     if (record->event.pressed) {
+      if (!num_lock)
+      {
+        tap_code(KC_NUM);
+      }
       SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_2) SS_TAP(X_KP_8) ));
+      if (!num_lock)
+      {
+        tap_code(KC_NUM);
+      }
     }
     break;
     case EMPT_FUNC:
@@ -664,54 +672,88 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case GER_AE:
     if (record->event.pressed) {
+      if (!num_lock)
+      {
+        tap_code(KC_NUM);
+      }
       if((get_mods()&MOD_MASK_SHIFT)!=0){
         clear_mods();
-        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_6) ));  
+        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_6) ));
+        set_mods(mods);
       }
       else
       {
         SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_8) ));
       }
+      if (!num_lock)
+      {
+        tap_code(KC_NUM);
+      }
     }
     break;
     case GER_OE:
     if (record->event.pressed) {
-      
+      if (!num_lock)
+      {
+        tap_code(KC_NUM);
+      }
       if((get_mods()&MOD_MASK_SHIFT)!=0){
         clear_mods();
         SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_4) ));
+        set_mods(mods);
       }
       else
       {
         SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_4) SS_TAP(X_KP_6) ));
       }
+      if (!num_lock)
+      {
+        tap_code(KC_NUM);
+      }
     }
     break;
     case GER_UE:
     if (record->event.pressed) {
+      if (!num_lock)
+      {
+        tap_code(KC_NUM);
+      }
       if((get_mods()&MOD_MASK_SHIFT)!=0){
         clear_mods();
         SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_0) ));
+        set_mods(mods);
       }
       else
       {
         SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_2) ));
       }
+      if (!num_lock)
+      {
+        tap_code(KC_NUM);
+      }
     }
     break;
     case GER_SZ:
     if (record->event.pressed) {
+      if (!num_lock)
+      {
+        tap_code(KC_NUM);
+      }
       SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_3) ));
+      if (!num_lock)
+      {
+        tap_code(KC_NUM);
+      }
     }
     break;
     case DOT_SPAC:
     if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_DOT)SS_DELAY(5)  SS_TAP(X_SPACE));
+      SEND_STRING(". ");
     }
     break;
     case COMA_SPAC:
     if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_COMMA)SS_DELAY(5)  SS_TAP(X_SPACE));
+      SEND_STRING(", ");
     }
     break;
     case SM_POWR:
@@ -962,6 +1004,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }  
       }  
       return false;
+    case VRSN:
+      SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+      return false;
     case RGB_SLD:
         if (rawhid_state.rgb_control) {
             return false;
@@ -983,3 +1028,72 @@ void matrix_scan_user(void){
   }
 }
 
+bool apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *correct) {
+  if (get_highest_layer(layer_state) != BASE)
+  {
+    return false;
+  }
+  
+#ifdef AUDIO_ENABLE
+    PLAY_SONG(autocorrect_song);
+#endif
+    return true;
+}
+
+bool led_update_user(led_t led_state) {
+    #ifdef AUDIO_ENABLE
+    static uint8_t caps_state = 0;
+    if (caps_state != led_state.caps_lock) {
+        led_state.caps_lock ? PLAY_SONG(caps_on) : PLAY_SONG(caps_off);
+        caps_state = led_state.caps_lock;
+    }
+    if(numl_state != led_state.num_lock){
+      led_state.num_lock ? PLAY_SONG(numl_on) : PLAY_SONG(numl_off);
+      numl_state = led_state.num_lock;
+    }
+    #endif
+    return true;
+}
+
+
+bool shutdown_user(bool jump_to_bootloader) {
+    if (jump_to_bootloader) {
+        // red for bootloader
+        rgb_matrix_set_color_all(RGB_RED);
+    } else {
+        // off for soft reset
+        rgb_matrix_set_color_all(RGB_OFF);
+    }
+    // force flushing -- otherwise will never happen
+    rgb_matrix_update_pwm_buffers();
+    // false to not process kb level
+    return false;
+}
+
+
+uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
+    if ((mods & MOD_MASK_CTRL)) {  // Was Ctrl held?
+        switch (keycode) {
+            case KC_Y: return C(KC_Z);  // Ctrl + Y reverses to Ctrl + Z.
+            case KC_Z: return C(KC_Y);  // Ctrl + Z reverses to Ctrl + Y.
+            case KC_C: return C(KC_V);  // Ctrl + V after a Ctrl + C
+        }
+    }
+    bool shifted = (mods & MOD_MASK_SHIFT);  // Was Shift held?
+    switch (keycode) {
+        case KC_TAB:
+            if (shifted) {        // If the last key was Shift + Tab,
+                return KC_TAB;    // ... the reverse is Tab.
+            } else {              // Otherwise, the last key was Tab,
+                return S(KC_TAB); // ... and the reverse is Shift + Tab.
+            }
+        case ALT_TAB:
+            if (shifted) { 
+                return ALT_TAB; 
+            } else { 
+                return S(ALT_TAB); 
+            } 
+    }
+
+    return KC_TRNS;  // Defer to default definitions.
+}
