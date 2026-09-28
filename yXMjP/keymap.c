@@ -19,6 +19,7 @@ uint16_t ctrl_tab_timer = 0;
 
 
 #ifdef AUDIO_ENABLE
+float one_up_sound[][2] = SONG(ONE_UP_SOUND);
 float megalovania[][2] = SONG(MEGALOVANIA);
 float weight_of_the_world[][2] = SONG(WEIGHT_OF_THE_WORLD);
 float renai_circulation[][2] = SONG(RENAI_CIRCULATION);
@@ -79,7 +80,6 @@ enum tap_dance_codes {
   ALT_F4,
 };
 
-#define TAB_SHIFT_TAB LT(15, KC_N)
 #define HOME_SHIFT_HOME LT(7, KC_T)
 #define END_SHIFT_END LT(10, KC_X)
 
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS]={
 [BASE]=LAYOUT_moonlander(
 TD(STENO_GAME),       	KC_F1,                	KC_F2,                	KC_F3,                	KC_F4,                	KC_F5,                	KC_F6,                	KC_F7,                	KC_F8,                	KC_F9,                	KC_F10,               	KC_F11,               	KC_F12,               	TD(STENO_GAME),       	
 KC_BSLS,              	KC_QUOTE,             	KC_COMMA,             	KC_DOT,               	KC_P,                 	KC_Y,                 	_______,              	_______,              	KC_F,                 	KC_G,                 	KC_C,                 	KC_R,                 	KC_L,                 	KC_SLASH,             	
-TAB_SHIFT_TAB,        	LALT_T(KC_A),         	LT(SYMB,KC_O),          LSFT_T(KC_E),         	LCTL_T(KC_U),         	KC_I,                 	_______,              	_______,              	KC_D,                 	RCTL_T(KC_H),         	RSFT_T(KC_T),         	LT(SYMB,KC_N),          RALT_T(KC_S),         	LT(UTIL,KC_MINUS),            	
+LT(4, KC_EQUAL),       	LALT_T(KC_A),         	LT(SYMB,KC_O),          LSFT_T(KC_E),         	LCTL_T(KC_U),         	KC_I,                 	_______,              	_______,              	KC_D,                 	RCTL_T(KC_H),         	RSFT_T(KC_T),         	LT(SYMB,KC_N),          RALT_T(KC_S),         	LT(UTIL,KC_MINUS),            	
 SH_TOGG,              	KC_SCLN,              	KC_Q,                 	KC_J,                 	KC_K,                 	KC_X,                 	                                                KC_B,                 	KC_M,                 	KC_W,                 	KC_V,                 	KC_Z,                 	SH_TOGG,             	
 TT(SYMB),             	TT(NAVI),             	TT(MOUS),             	DM_REC1,              	QK_ALT_REPEAT_KEY,    	                        DM_PLY1,              	DM_PLY2,              	                        QK_REPEAT_KEY,        	DM_REC2,              	TT(MOUS),             	TT(NAVI),             	TT(SYMB),             	
                                                 KC_BSPC,              	                        LT(MOUS,KC_DELETE),     MT(MOD_LGUI,KC_ESCAPE), KC_RIGHT_GUI,         	LT(NAVI,KC_ENTER),      KC_SPACE
@@ -1184,4 +1184,105 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         default:
             return TAPPING_TERM;
     }
+}
+
+
+void leader_start_user(void) {
+#ifdef AUDIO_ENABLE
+    PLAY_SONG(one_up_sound);
+#endif
+}
+
+void leader_end_user(void) {
+    bool did_leader_succeed = false;
+
+    if (leader_sequence_one_key(KC_A)) {
+        // Leader, a => <>
+        SEND_STRING("<>");
+        tap_code16(KC_LEFT);
+    } else if (leader_sequence_one_key(KC_C)) {
+        // Leader, c => {}
+        SEND_STRING("{}");
+        tap_code16(KC_LEFT);
+    } else if (leader_sequence_one_key(KC_D)){
+        // Leader, d => ""
+        SEND_STRING('""');
+        tap_code16(KC_LEFT);
+    } else if (leader_sequence_one_key(KC_P)) {
+        // Leader, p => ()
+        SEND_STRING("()");
+        tap_code16(KC_LEFT);
+    } else if (leader_sequence_one_key(KC_S)) {
+        // Leader, s => []
+        SEND_STRING("[]");
+        tap_code16(KC_LEFT);
+    } else if (leader_sequence_two_keys(KC_U, KC_T)) {
+        // Leader, mt => DB update template
+        SEND_STRING("## Request/Reason");
+        tap_code16(KC_ENTER);
+        tap_code16(KC_ENTER);
+        SEND_STRING("## Backup file(s)");
+        tap_code16(KC_ENTER);
+        tap_code16(KC_ENTER);
+        SEND_STRING("## Before & After");
+        tap_code16(KC_ENTER);
+        SEND_STRING("```");
+        tap_code16(KC_RIGHT);
+        tap_code16(KC_RIGHT);
+        tap_code16(KC_ENTER);
+        tap_code16(KC_ENTER);
+        SEND_STRING("## Update");
+        tap_code16(KC_ENTER);
+        SEND_STRING("```");
+        tap_code16(KC_RIGHT);
+        tap_code16(KC_RIGHT);
+        tap_code16(KC_ENTER);
+  // git
+    } else if (leader_sequence_two_keys(KC_G, KC_S)) {
+        // Leader, g, s => git status
+        SEND_STRING("git status"SS_TAP(X_ENTER));
+    } else if (leader_sequence_two_keys(KC_G, KC_P)) {
+        // Leader, g, p => git push
+        SEND_STRING("git push"SS_TAP(X_ENTER));
+    } else if (leader_sequence_two_keys(KC_G, KC_C)) {
+        // Leader, g, c => git add -A && git commit -m
+        SEND_STRING("git add -A && git commit -m ");
+    } else if (leader_sequence_two_keys(KC_G, KC_F)) {
+        // Leader, g, f => git fetch
+        SEND_STRING("git fetch"SS_TAP(X_ENTER));
+    } else if (leader_sequence_two_keys(KC_G, KC_M)) {
+        // Leader, g, m => git merge origin/oryx
+        SEND_STRING("git merge origin/oryx"SS_TAP(X_ENTER));
+  // Text
+    } else if (leader_sequence_two_keys(KC_T, KC_T)) {
+      // Leader, t, t => Thank you
+      SEND_STRING("Thank you");
+    } else if (leader_sequence_two_keys(KC_T, KC_X)) {
+      // Leader, t, x => Thanks 
+      SEND_STRING("Thanks");
+  // SQL
+    } else if (leader_sequence_two_keys(KC_S, KC_E)) {
+        // Leader, s, e => SELECT * FROM ;
+        SEND_STRING("SELECT * FROM ");
+    } else if (leader_sequence_two_keys(KC_F, KC_F)) {
+        // Leader, f, f => FROM ;
+        SEND_STRING("FROM ");
+    } else if (leader_sequence_two_keys(KC_W, KC_W)) {
+        // Leader, w, w => WHERE ;
+        SEND_STRING("WHERE ");
+    // Shortcuts
+    } else if (leader_sequence_two_keys(KC_S, KC_A)) {
+      SEND_STRING(SS_LCTL("a")SS_DELAY(20)SS_LCTL("c"));
+    } else if (leader_sequence_two_keys(KC_R, KC_A)) {
+      SEND_STRING(SS_LCTL("a")SS_DELAY(20)SS_LCTL("v"));
+    }
+
+
+#ifdef AUDIO_ENABLE
+    if (did_leader_succeed) {
+        PLAY_SONG(all_star);
+    } else {
+        PLAY_SONG(rick_roll);
+    }
+#endif
 }
