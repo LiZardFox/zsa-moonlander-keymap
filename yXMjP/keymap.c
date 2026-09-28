@@ -255,7 +255,7 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo39, LCTL(KC_END)),
     COMBO(combo40, KC_UNDS),
     COMBO(combo41, KC_SCLN),
-}
+};
 
 extern rgb_config_t rgb_matrix_config;
 
