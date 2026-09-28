@@ -761,7 +761,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           process_alt_num_key("00128");
         }
         return false;
-        return false;
         case ST_MACRO_1:
         case EMPT_FUNC:
         if (record->event.pressed) {
@@ -797,6 +796,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           process_alt_num_key("0223");
         }
+        return false;
         case ST_MACRO_6:
         case GER_AE:
         if (record->event.pressed) {
