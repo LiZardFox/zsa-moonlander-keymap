@@ -1,11 +1,41 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 #include "i18n.h"
-#include "keymap_steno.h"
 #define MOON_LED_LEVEL LED_LEVEL
 #ifndef ZSA_SAFE_RANGE
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
+
+
+
+static uint8_t numl_state = 0;
+bool numlock_changed = false;
+
+bool is_alt_tab_active = false;
+uint16_t alt_tab_timer = 0;
+
+bool is_ctrl_tab_active = false;
+uint16_t ctrl_tab_timer = 0;
+
+
+#ifdef AUDIO_ENABLE
+float one_up_sound[][2] = SONG(ONE_UP_SOUND);
+float megalovania[][2] = SONG(MEGALOVANIA);
+float weight_of_the_world[][2] = SONG(WEIGHT_OF_THE_WORLD);
+float renai_circulation[][2] = SONG(RENAI_CIRCULATION);
+float rick_roll[][2] = SONG(RICK_ROLL);
+float song_of_the_ancients[][2] = SONG(SONG_OF_THE_ANCIENTS);
+float all_star[][2] = SONG(ALL_STAR);
+float autocorrect_song[][2] = SONG(MARIO_GAMEOVER);
+float caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
+float caps_off[][2] = SONG(CAPS_LOCK_OFF_SOUND);
+float numl_on[][2] = SONG(NUM_LOCK_ON_SOUND);
+float numl_off[][2] = SONG(NUM_LOCK_OFF_SOUND);
+float caps_word_on_song[][2] = SONG(ZELDA_PUZZLE);
+float caps_word_off_song[][2] = SONG(ZELDA_TREASURE);
+#endif
+
+
 
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
@@ -218,23 +248,6 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo36, CW_TOGG),
     COMBO(combo37, QK_LEAD),
 };
-
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case MT(MOD_LALT, KC_A):
-            return g_tapping_term + 70;
-        case MT(MOD_LCTL, KC_U):
-            return g_tapping_term + 70;
-        case MT(MOD_RCTL, KC_H):
-            return g_tapping_term + 70;
-        case MT(MOD_RALT, KC_S):
-            return g_tapping_term + 70;
-        case KC_SPACE:
-            return g_tapping_term -140;
-        default:
-            return g_tapping_term;
-    }
-}
 
 
 extern rgb_config_t rgb_matrix_config;
@@ -699,56 +712,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
     }
     break;
-    case ST_MACRO_0:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0)SS_DELAY(100)  SS_TAP(X_KP_0)SS_DELAY(100)  SS_TAP(X_KP_1)SS_DELAY(100)  SS_TAP(X_KP_2)SS_DELAY(100)  SS_TAP(X_KP_8) ));
-    }
-    break;
-    case ST_MACRO_1:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_9))SS_DELAY(1)  SS_LSFT(SS_TAP(X_0))SS_DELAY(1)  SS_TAP(X_EQUAL)SS_DELAY(1)  SS_LSFT(SS_TAP(X_DOT))SS_DELAY(1)  SS_LSFT(SS_TAP(X_LBRC))  SS_DELAY(1) SS_TAP(X_ENTER));
-    }
-    break;
-    case ST_MACRO_2:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_R))SS_DELAY(50)  SS_TAP(X_N)SS_DELAY(1)  SS_TAP(X_O)SS_DELAY(1)  SS_TAP(X_T)SS_DELAY(1)  SS_TAP(X_E)SS_DELAY(1)  SS_TAP(X_P)SS_DELAY(1)  SS_TAP(X_A)SS_DELAY(1)  SS_TAP(X_D)  SS_DELAY(1) SS_TAP(X_ENTER));
-    }
-    break;
-    case ST_MACRO_3:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_R))SS_DELAY(50)  SS_TAP(X_C)SS_DELAY(1)  SS_TAP(X_O)SS_DELAY(1)  SS_TAP(X_D)SS_DELAY(1)  SS_TAP(X_E)  SS_DELAY(1) SS_TAP(X_ENTER));
-    }
-    break;
-    case ST_MACRO_4:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_K))SS_DELAY(1)  SS_LCTL(SS_TAP(X_LEFT)));
-    }
-    break;
-    case ST_MACRO_5:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_K))SS_DELAY(1)  SS_LCTL(SS_TAP(X_RIGHT)));
-    }
-    break;
-    case ST_MACRO_6:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0)SS_DELAY(100)  SS_TAP(X_KP_2)SS_DELAY(100)  SS_TAP(X_KP_2)SS_DELAY(100)  SS_TAP(X_KP_8) ));
-    }
-    break;
-    case ST_MACRO_7:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0)SS_DELAY(100)  SS_TAP(X_KP_2)SS_DELAY(100)  SS_TAP(X_KP_4)SS_DELAY(100)  SS_TAP(X_KP_6) ));
-    }
-    break;
-    case ST_MACRO_8:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0)SS_DELAY(100)  SS_TAP(X_KP_2)SS_DELAY(100)  SS_TAP(X_KP_5)SS_DELAY(100)  SS_TAP(X_KP_2) ));
-    }
-    break;
-    case ST_MACRO_9:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0)SS_DELAY(100)  SS_TAP(X_KP_2)SS_DELAY(100)  SS_TAP(X_KP_2)SS_DELAY(100)  SS_TAP(X_KP_3) ));
-    }
-    break;
+
+
 
     case DUAL_FUNC_0:
       if (record->tap.count > 0) {
@@ -984,7 +949,7 @@ void matrix_scan_user(void){
 }
 
 bool apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *correct) {
-  if (get_highest_layer(layer_state) != BASE)
+  if (get_highest_layer(layer_state) != 0)
   {
     return false;
   }
@@ -1036,7 +1001,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     }
     bool shifted = (mods & MOD_MASK_SHIFT);  // Was Shift held?
     switch (keycode) {
-        case TAB_SHIFT_TAB:
         case KC_TAB:
             if (shifted) {        // If the last key was Shift + Tab,
                 return KC_TAB;    // ... the reverse is Tab.
@@ -1064,8 +1028,8 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
         case LSFT_T(KC_E):
         case RSFT_T(KC_T):
             return 0;
-        case LT(SYMB, KC_O):
-        case LT(SYMB, KC_N):
+        case LT(2, KC_O):
+        case LT(2, KC_N):
             return 60;
         default:
           return FLOW_TAP_TERM;
@@ -1181,7 +1145,8 @@ void leader_end_user(void) {
         tap_code16(KC_LEFT);
     } else if (leader_sequence_one_key(KC_D)){
         // Leader, d => ""
-        SEND_STRING('""');
+        tap_code16(KC_DQUO);
+        tap_code16(KC_DQUO);
         tap_code16(KC_LEFT);
     } else if (leader_sequence_one_key(KC_P)) {
         // Leader, p => ()
