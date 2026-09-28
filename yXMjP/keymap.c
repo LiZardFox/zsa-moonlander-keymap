@@ -4,9 +4,6 @@
 #ifndef ZSA_SAFE_RANGE
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
-#ifndef SUPER_TAB_TIME_ACTIVE
-#define SUPER_TAB_TIME_ACTIVE 1000
-#endif
 
 static uint8_t numl_state = 0;
 bool numlock_changed = false;
