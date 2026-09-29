@@ -1203,7 +1203,7 @@ void leader_end_user(void) {
         // Leader, w, w => WHERE ;
         SEND_STRING("WHERE ");
   // code 
-    } else if leader_sequence_two_keys(KC_P, KC_F) {
+    } else if (leader_sequence_two_keys(KC_P, KC_F)) {
       SEND_STRING("def ():");
       tap_code16(KC_ENTER);
       tap_code16(KC_UP);
