@@ -20,12 +20,6 @@ uint16_t ctrl_tab_timer = 0;
 
 #ifdef AUDIO_ENABLE
 float one_up_sound[][2] = SONG(ONE_UP_SOUND);
-float megalovania[][2] = SONG(MEGALOVANIA);
-float weight_of_the_world[][2] = SONG(WEIGHT_OF_THE_WORLD);
-float renai_circulation[][2] = SONG(RENAI_CIRCULATION);
-float rick_roll[][2] = SONG(RICK_ROLL);
-float song_of_the_ancients[][2] = SONG(SONG_OF_THE_ANCIENTS);
-float all_star[][2] = SONG(ALL_STAR);
 float autocorrect_song[][2] = SONG(MARIO_GAMEOVER);
 float caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
 float caps_off[][2] = SONG(CAPS_LOCK_OFF_SOUND);
@@ -90,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TD(DANCE_0),    KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,                                          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,         TD(DANCE_1),    
     KC_BSLS,        KC_QUOTE,       KC_COMMA,       KC_DOT,         KC_P,           KC_Y,           KC_TRANSPARENT,                                 TD(DANCE_2),    KC_F,           KC_G,           KC_C,           KC_R,           KC_L,           KC_SLASH,       
     LT(4, KC_EQUAL),MT(MOD_LALT, KC_A),LT(2, KC_O),    MT(MOD_LSFT, KC_E),MT(MOD_LCTL, KC_U),KC_I,           KC_TRANSPARENT,                                                                 KC_TRANSPARENT, KC_D,           MT(MOD_RCTL, KC_H),MT(MOD_RSFT, KC_T),LT(2, KC_N),    MT(MOD_RALT, KC_S),LT(3, KC_MINUS),
-    SH_TOGG,        KC_SCLN,        KC_Q,           MEH_T(KC_J),    KC_K,           KC_X,                                           KC_B,           KC_M,           MEH_T(KC_W),    KC_V,           KC_Z,           SH_TOGG,         
+    SH_OS,          KC_SCLN,        KC_Q,           MEH_T(KC_J),    KC_K,           KC_X,                                           KC_B,           KC_M,           MEH_T(KC_W),    KC_V,           KC_Z,           SH_OS,         
     TT(2),          TT(4),          TT(5),          DM_REC1,        QK_ALT_REPEAT_KEY,         DM_PLY1,                                                                                                        DM_PLY2,        QK_REPEAT_KEY,         DM_REC2,        TT(5),          TT(4),          TT(2),          
     LT(5, KC_BSPC), OSM(MOD_LSFT),  MT(MOD_LGUI, KC_ESCAPE),                KC_RIGHT_GUI,   LT(4, KC_ENTER),KC_SPACE
   ),
@@ -1140,8 +1134,6 @@ void leader_start_user(void) {
 }
 
 void leader_end_user(void) {
-    bool did_leader_succeed = false;
-
     if (leader_sequence_one_key(KC_A)) {
         // Leader, a => <>
         SEND_STRING("<>");
@@ -1155,6 +1147,18 @@ void leader_end_user(void) {
         tap_code16(KC_DQUO);
         tap_code16(KC_DQUO);
         tap_code16(KC_LEFT);
+    } else if (leader_sequence_two_keys(KC_D, KC_D)){
+        // Leader, d d d=> """"""
+        tap_code16(KC_DQUO);
+        tap_code16(KC_DQUO);
+        tap_code16(KC_DQUO);
+        tap_code16(KC_DQUO);
+        tap_code16(KC_DQUO);
+        tap_code16(KC_DQUO);
+        tap_code16(KC_LEFT);
+        tap_code16(KC_LEFT);
+        tap_code16(KC_LEFT);
+        tap_code16(KC_ENTER);
     } else if (leader_sequence_one_key(KC_P)) {
         // Leader, p => ()
         SEND_STRING("()");
@@ -1163,27 +1167,6 @@ void leader_end_user(void) {
         // Leader, s => []
         SEND_STRING("[]");
         tap_code16(KC_LEFT);
-    } else if (leader_sequence_two_keys(KC_U, KC_T)) {
-        // Leader, mt => DB update template
-        SEND_STRING("## Request/Reason");
-        tap_code16(KC_ENTER);
-        tap_code16(KC_ENTER);
-        SEND_STRING("## Backup file(s)");
-        tap_code16(KC_ENTER);
-        tap_code16(KC_ENTER);
-        SEND_STRING("## Before & After");
-        tap_code16(KC_ENTER);
-        SEND_STRING("```");
-        tap_code16(KC_RIGHT);
-        tap_code16(KC_RIGHT);
-        tap_code16(KC_ENTER);
-        tap_code16(KC_ENTER);
-        SEND_STRING("## Update");
-        tap_code16(KC_ENTER);
-        SEND_STRING("```");
-        tap_code16(KC_RIGHT);
-        tap_code16(KC_RIGHT);
-        tap_code16(KC_ENTER);
   // git
     } else if (leader_sequence_two_keys(KC_G, KC_S)) {
         // Leader, g, s => git status
@@ -1217,21 +1200,43 @@ void leader_end_user(void) {
     } else if (leader_sequence_two_keys(KC_W, KC_W)) {
         // Leader, w, w => WHERE ;
         SEND_STRING("WHERE ");
+  // code 
+    } else if leader_sequence_two_keys(KC_P, KC_F) {
+      SEND_STRING("def ():");
+      tap_code16(KC_ENTER);
+      tap_code16(KC_UP);
+      tap_code16(KC_END);
+      tap_code16(KC_LEFT);
+      tap_code16(KC_LEFT);
+      tap_code16(KC_LEFT);
     // Shortcuts
     } else if (leader_sequence_two_keys(KC_S, KC_A)) {
       SEND_STRING(SS_LCTL("a")SS_DELAY(20)SS_LCTL("c"));
     } else if (leader_sequence_two_keys(KC_R, KC_A)) {
       SEND_STRING(SS_LCTL("a")SS_DELAY(20)SS_LCTL("v"));
+  // German
+    } else if (leader_sequence_two_keys(KC_A, KC_E)) {
+      // Leader a, e => ä
+        process_alt_num_key("0228");
+    } else if (leader_sequence_three_keys(KC_T, KC_A, KC_E)) {
+      // Leader t, a, e => Ä
+        process_alt_num_key("0196");
+    } else if (leader_sequence_two_keys(KC_O, KC_E)) {
+      // Leader o, e => ö
+        process_alt_num_key("0246");
+    } else if (leader_sequence_three_keys(KC_T, KC_O, KC_E)) {
+      // Leader t, ö, e => Ö
+        process_alt_num_key("0214");
+    } else if (leader_sequence_two_keys(KC_U, KC_E)) {
+      // Leader u, e => ü
+        process_alt_num_key("0252");
+    } else if (leader_sequence_three_keys(KC_T, KC_U, KC_E)) {
+      // Leader t, u, e => Ü
+        process_alt_num_key("0220");
+    } else if (leader_sequence_two_keys(KC_S, KC_Z)) {
+      // Leader s, z => ß
+        process_alt_num_key("0223");
     }
-
-
-#ifdef AUDIO_ENABLE
-    if (did_leader_succeed) {
-        PLAY_SONG(all_star);
-    } else {
-        PLAY_SONG(rick_roll);
-    }
-#endif
 }
 
 
