@@ -1138,11 +1138,11 @@ void leader_start_user(void) {
 void leader_end_user(void) {
     if (leader_sequence_one_key(KC_A)) {
         // Leader, a => <>
-        SEND_STRING("<>"SS_TAP(X_LEFT));
+        SEND_STRING("<>");
         tap_code16(KC_LEFT);
     } else if (leader_sequence_one_key(KC_C)) {
         // Leader, c => {}
-        SEND_STRING("{}"SS_TAP(X_LEFT));
+        SEND_STRING("{}");
         tap_code16(KC_LEFT);
     } else if (leader_sequence_one_key(KC_D)){
         // Leader, d => ""
@@ -1150,7 +1150,7 @@ void leader_end_user(void) {
         tap_code16(KC_DQUO);
         tap_code16(KC_LEFT);
     } else if (leader_sequence_two_keys(KC_D, KC_D)){
-        // Leader, d d => """"""
+        // Leader, d d d=> """"""
         tap_code16(KC_DQUO);
         tap_code16(KC_DQUO);
         tap_code16(KC_DQUO);
@@ -1163,11 +1163,11 @@ void leader_end_user(void) {
         tap_code16(KC_ENTER);
     } else if (leader_sequence_one_key(KC_P)) {
         // Leader, p => ()
-        SEND_STRING("()"SS_TAP(X_LEFT));
+        SEND_STRING("()");
         tap_code16(KC_LEFT);
     } else if (leader_sequence_one_key(KC_S)) {
         // Leader, s => []
-        SEND_STRING("[]"SS_TAP(X_LEFT));
+        SEND_STRING("[]");
         tap_code16(KC_LEFT);
   // git
     } else if (leader_sequence_two_keys(KC_G, KC_S)) {
@@ -1207,8 +1207,13 @@ void leader_end_user(void) {
         SEND_STRING("WHERE ");
   // code 
     } else if (leader_sequence_two_keys(KC_P, KC_F)) {
-      // def ():
-      SEND_STRING("def ():"SS_TAP(X_ENTER)SS_TAP(X_UP)SS_TAP(X_END)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT));
+      SEND_STRING("def ():");
+      tap_code16(KC_ENTER);
+      tap_code16(KC_UP);
+      tap_code16(KC_END);
+      tap_code16(KC_LEFT);
+      tap_code16(KC_LEFT);
+      tap_code16(KC_LEFT);
     // Shortcuts
     } else if (leader_sequence_two_keys(KC_S, KC_A)) {
       SEND_STRING(SS_LCTL("a")SS_DELAY(20)SS_LCTL("c"));
