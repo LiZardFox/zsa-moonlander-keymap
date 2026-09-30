@@ -145,7 +145,7 @@
 :reminent           -> remnant
 :repid              -> rapid
 :rference           -> reference
-:righ               -> right
+:righ:              -> right
 :rised              -> raised
 :rumers             -> rumors
 :rythem             -> rhythm
