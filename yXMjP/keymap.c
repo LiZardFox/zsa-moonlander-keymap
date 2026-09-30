@@ -1178,7 +1178,10 @@ void leader_end_user(void) {
         SEND_STRING("git push"SS_TAP(X_ENTER));
     } else if (leader_sequence_two_keys(KC_G, KC_C)) {
         // Leader, g, c => git add -A && git commit -m ""
-        SEND_STRING("git add -A ; git commit -m "SS_TAP(X_DQUO)SS_TAP(X_DQUO)SS_TAP(X_LEFT));
+        SEND_STRING("git add -A ; git commit -m ");
+        tap_code16(KC_DQUO);
+        tap_code16(KC_DQUO);
+        tap_code16(KC_LEFT);
     } else if (leader_sequence_two_keys(KC_G, KC_F)) {
         // Leader, g, f => git fetch
         SEND_STRING("git fetch"SS_TAP(X_ENTER));
