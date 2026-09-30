@@ -94,6 +94,7 @@
 :leran              -> learn
 :lible              -> libel
 :lieved             -> lived
+:lpan               -> plan
 :mamal              -> mammal
 :milion             -> million
 :mistery:           -> mystery
@@ -144,6 +145,7 @@
 :reminent           -> remnant
 :repid              -> rapid
 :rference           -> reference
+:righ               -> right
 :rised              -> raised
 :rumers             -> rumors
 :rythem             -> rhythm
@@ -161,6 +163,8 @@
 :sponser            -> sponsor
 :stroy:             -> story
 :szie               -> size
+:tahn:              -> than
+:tehn:              -> then
 :the:the:           -> the
 :theri:             -> their
 :thier              -> their
