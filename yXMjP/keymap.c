@@ -6,7 +6,7 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-
+bool is_swap_hands_on = false;
 
 static uint8_t numl_state = 0;
 bool numlock_changed = false;
@@ -932,6 +932,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_KP_0:
       process_num_lock_alteration(KC_0, KC_KP_0, record);
       return false;
+# if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
+    case SH_OS:
+      if (event.pressed) {
+        if (record->tap.count == ONESHOT_TAP_TOGGLE) {
+            swap_hands_on();
+            is_swap_hands_on = true;
+            return false;
+          }
+      } else {
+          if (record->tap.count == 1 && is_swap_hands_on) {
+            swap_hands_off();
+            is_swap_hands_on = false;
+            return false;
+          }
+      }
+# endif
   }
   return true;
 }
