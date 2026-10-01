@@ -6,16 +6,10 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-bool is_swap_hands_on = false;
+bool is_swap_hands_tap_toggle_on = false;
 
 static uint8_t numl_state = 0;
 bool numlock_changed = false;
-
-bool is_alt_tab_active = false;
-uint16_t alt_tab_timer = 0;
-
-bool is_ctrl_tab_active = false;
-uint16_t ctrl_tab_timer = 0;
 
 
 #ifdef AUDIO_ENABLE
@@ -44,10 +38,6 @@ enum custom_keycodes {
   ST_MACRO_8,
   ST_MACRO_9,
   
-  ALT_TAB,
-  CTRL_TAB,
-  SHFT_ALT_TAB,
-  SHFT_CTRL_TAB,
   EURO_SIGN,
   EMPT_FUNC,
   NOTE_PAD,
@@ -60,6 +50,10 @@ enum custom_keycodes {
   GER_SZ,
   SM_SLEP,
   SM_POWR,
+  NEXTSEN,
+  JOINLN,
+  SRCHSEL,
+  BRACES,
 };
 
 
@@ -93,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,          STN_N1,         STN_N2,         STN_N3,         STN_N4,         STN_N5,         KC_NO,                                          KC_NO,          STN_N6,         STN_N7,         STN_N8,         STN_N9,         STN_NA,         STN_NB,         
     KC_NO,          STN_S1,         STN_TL,         STN_PL,         STN_HL,         STN_ST1,        KC_NO,                                                                          KC_NO,          STN_ST3,        STN_FR,         STN_PR,         STN_LR,         STN_TR,         STN_DR,         
     KC_NO,          STN_S2,         STN_KL,         STN_WL,         STN_RL,         STN_ST2,                                        STN_ST4,        STN_RR,         STN_BR,         STN_GR,         STN_SR,         STN_ZR,         
-    SHFT_ALT_TAB,         KC_NO,          KC_NO,          KC_NO,          KC_LEFT_CTRL,   KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          ALT_TAB,         
+    S(A(KC_TAB)),         KC_NO,          KC_NO,          KC_NO,          KC_LEFT_CTRL,   KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          A(KC_TAB),         
     STN_A,          STN_O,          STN_NC,                         STN_NC,         STN_E,          STN_U
   ),
   [2] = LAYOUT_moonlander(
@@ -105,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [3] = LAYOUT_moonlander(
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_SYSTEM_POWER,KC_SYSTEM_SLEEP,KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, QK_BOOT,        
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_PWR,KC_SLEP,KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, QK_BOOT,        
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 ST_MACRO_2,     QK_DYNAMIC_TAPPING_TERM_UP,LCTL(LSFT(KC_F12)),LALT(LCTL(KC_UP)),LCTL(KC_F12),   KC_TRANSPARENT, KC_TRANSPARENT, 
     AC_TOGG,         ST_MACRO_1,     KC_TRANSPARENT, KC_TRANSPARENT, LCTL(LSFT(KC_GRAVE)),KC_BSPC,        KC_TRANSPARENT,                                                                 ST_MACRO_3,     QK_DYNAMIC_TAPPING_TERM_PRINT,ST_MACRO_4,     TD(DANCE_5),    ST_MACRO_5,     KC_TRANSPARENT, KC_TRANSPARENT, 
     AU_TOGG,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 QK_DYNAMIC_TAPPING_TERM_DOWN,LCTL(KC_I),     LALT(LCTL(KC_DOWN)),LALT(LCTL(KC_I)),KC_TRANSPARENT, KC_TRANSPARENT, 
@@ -114,18 +108,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [4] = LAYOUT_moonlander(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_PAGE_UP,     DUAL_FUNC_0,    KC_UP,          DUAL_FUNC_1,    KC_MS_WH_UP,    KC_TRANSPARENT, 
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                 KC_TRANSPARENT, KC_PGDN,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_MS_WH_DOWN,  KC_TRANSPARENT, 
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, SHFT_ALT_TAB,         ALT_TAB,         SHFT_CTRL_TAB,         CTRL_TAB,         KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, SELLUP, JOINLN, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_PAGE_UP,     DUAL_FUNC_0,    KC_UP,          DUAL_FUNC_1,    KC_MS_WH_UP,    KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, SELWBAK, SELLINE, SELWORD, KC_TRANSPARENT, KC_TRANSPARENT,                                                                 KC_TRANSPARENT, KC_PGDN,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_MS_WH_DOWN,  KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, S(A(KC_TAB)),         A(KC_TAB),         S(C(KC_TAB)),         CTRL_TAB,         KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_WWW_BACK,    KC_WWW_FORWARD, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [5] = LAYOUT_moonlander(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_ACCEL0,   KC_MS_ACCEL1,   KC_MS_ACCEL2,   KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_AUDIO_VOL_UP,KC_MS_BTN1,     KC_MS_UP,       KC_MS_BTN2,     KC_MS_WH_UP,    KC_APPLICATION, 
-    KC_TRANSPARENT, OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_LSFT),  OSM(MOD_LCTL),  KC_TRANSPARENT, KC_TRANSPARENT,                                                                 KC_TRANSPARENT, KC_AUDIO_VOL_DOWN,KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    KC_MS_WH_DOWN,  KC_MEDIA_PLAY_PAUSE,
-    KC_TRANSPARENT, KC_PC_UNDO,     KC_PC_CUT,      KC_PC_COPY,     LGUI(KC_V),     LCTL(LSFT(KC_V)),                                KC_AUDIO_MUTE,  KC_MS_WH_LEFT,  KC_MS_BTN3,     KC_MS_WH_RIGHT, KC_MS_JIGGLER_TOGGLE,KC_TRANSPARENT, 
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_MS_BTN4,     KC_MS_BTN5,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_ACCEL0,   KC_MS_ACCEL1,   KC_MS_ACCEL2,   KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, OM_W_U,OM_BTNS,     OM_U,       OM_DBLS,     OM_FAST,    KC_APPLICATION, 
+    KC_TRANSPARENT, OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_LSFT),  OSM(MOD_LCTL),  SRCHSEL, KC_TRANSPARENT,                                                                 KC_TRANSPARENT, OM_W_D,OM_L,     OM_D,     OM_R,    OM_SLOW,  KC_MEDIA_PLAY_PAUSE,
+    KC_TRANSPARENT, KC_PC_UNDO,     KC_PC_CUT,      KC_PC_COPY,     LGUI(KC_V),     LCTL(LSFT(KC_V)),                                OM_RELS,  OM_HLDS,  OM_SEL1,     OM_SEL2, OM_SEL3,KC_MS_JIGGLER_TOGGLE, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, OM_BTN4,     OM_BTN5,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                 KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_BTN1
   ),
   [6] = LAYOUT_moonlander(
@@ -206,6 +200,7 @@ const uint16_t PROGMEM combo39[] = { MEH_T(KC_W), KC_M, KC_K, MEH_T(KC_J), COMBO
 const uint16_t PROGMEM combo40[] = { KC_RIGHT_GUI, LT(4, KC_ENTER), COMBO_END};
 const uint16_t PROGMEM combo41[] = { KC_SPACE, LT(4, KC_ENTER), COMBO_END};
 const uint16_t PROGMEM combo42[] = { MT(MOD_RCTL, KC_H), MT(MOD_LCTL, KC_U), MT(MOD_RSFT, KC_T), MT(MOD_LSFT, KC_E), COMBO_END};
+const uint16_t PROGMEM combo43[] = { LT(2, KC_O), MT(MOD_LSFT, KC_E), MT(MOD_RSFT, KC_T),LT(2, KC_N), COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, LGUI(KC_DOT)),
@@ -251,6 +246,7 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo40, KC_CAPS),
     COMBO(combo41, CW_TOGG),
     COMBO(combo42, QK_LEAD),
+    COMBO(combo43, NEXTSEN),
 };
 
 extern rgb_config_t rgb_matrix_config;
@@ -628,13 +624,15 @@ static void tap_kp_code(char code[5]){
 
 static void process_alt_num_key_with_shift(char code[5], char shiftedCode[5]){
   uint8_t mods = get_mods();
+  uint8_t oneshot_mods = get_oneshot_mods();
   bool num_lock = host_keyboard_led_state().num_lock;
   bool caps = host_keyboard_led_state().caps_lock || is_caps_word_on();
-  bool shift = (mods&MOD_MASK_SHIFT)!=0;
+  bool shift = ((mods | oneshot_mods ) & MOD_MASK_SHIFT)!=0;
   if (!num_lock)
   {
     tap_code(KC_NUM);
   }
+  clear_oneshot_mods();
   clear_mods();
   register_code(KC_LALT);
   if(caps != shift){
@@ -659,6 +657,7 @@ static void process_alt_num_key(char code[5]){
   {
     tap_code(KC_NUM);
   }
+  clear_oneshot_mods();
   clear_mods();
   register_code(KC_LALT);
   tap_kp_code(code);
@@ -687,17 +686,8 @@ static void process_num_lock_alteration(uint16_t keycode, uint16_t numl_keycode,
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (is_alt_tab_active && (keycode != ALT_TAB&&keycode != SHFT_ALT_TAB))
-  {
-      unregister_code(KC_LALT);
-      is_alt_tab_active = false;
-  }
-  
-  if (is_ctrl_tab_active && (keycode != CTRL_TAB&& keycode != SHFT_CTRL_TAB))
-  {
-      unregister_code(KC_LCTL);
-      is_ctrl_tab_active = false;
-  }
+  const uint8_t mods = get_mods();
+  const uint8_t oneshot_mods = get_oneshot_mods();
   switch (keycode) {
   case QK_MODS ... QK_MODS_MAX:
     // Mouse and consumer keys (volume, media) with modifiers work inconsistently across operating systems,
@@ -828,59 +818,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           SEND_STRING(SS_LGUI("x")SS_DELAY(300)"u"SS_DELAY(200)"s");
         }
         break;
-        case ALT_TAB:
-        if (record->event.pressed) {
-          if (!is_alt_tab_active) {
-          is_alt_tab_active = true;
-          register_code(KC_LALT);
-        }
-        alt_tab_timer = timer_read();
-
-        register_code16(KC_TAB);
-      } else {
-        unregister_code16(KC_TAB);
-      }
-      break;
-      
-    case SHFT_ALT_TAB:
-    if (record->event.pressed) {
-        if (!is_alt_tab_active) {
-          is_alt_tab_active = true;
-          register_code(KC_LALT);
-        }
-        alt_tab_timer = timer_read();
-
-          register_code16(LSFT(KC_TAB));
-      } else {
-          unregister_code16(LSFT(KC_TAB));
-      }
-      break;
-    case CTRL_TAB:
-    if (record->event.pressed) {
-        if (!is_ctrl_tab_active) {
-          is_ctrl_tab_active = true;
-          register_code(KC_LCTL);
-        }
-        ctrl_tab_timer = timer_read();
-
-          register_code16(KC_TAB);
-      } else {
-          unregister_code16(KC_TAB);
-      }
-      break;
-    case SHFT_CTRL_TAB:
-    if (record->event.pressed) {
-        if (!is_ctrl_tab_active) {
-          is_ctrl_tab_active = true;
-          register_code(KC_LCTL);
-        }
-        ctrl_tab_timer = timer_read();
-        
-        register_code16(LSFT(KC_TAB));
-      } else {
-        unregister_code16(LSFT(KC_TAB));
-      }
-      break;
     case KC_PPLS: 
       process_num_lock_alteration(KC_PLUS, KC_PPLS, record);
       return false;
@@ -932,18 +869,62 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_KP_0:
       process_num_lock_alteration(KC_0, KC_KP_0, record);
       return false;
+    case NEXTSEN:  // Next sentence macro.
+      if (record->event.pressed) {
+        SEND_STRING(". ");
+        add_oneshot_mods(MOD_BIT(KC_LSFT));  // Set one-shot mod for shift.
+      }
+      return false;
+    case JOINLN:  // Join lines like Vim's `J` command.
+      if (record->event.pressed) {
+        SEND_STRING( // Go to the end of the line and tap delete.
+            SS_TAP(X_END) SS_TAP(X_DEL)
+            // In case this has joined two words together, insert one space.
+            SS_TAP(X_SPC)
+            SS_LCTL(
+              // Go to the beginning of the next word.
+              SS_TAP(X_RGHT) SS_TAP(X_LEFT)
+              // Select back to the end of the previous word. This should select
+              // all spaces and tabs between the joined lines from indentation
+              // or trailing whitespace, including the space inserted earlier.
+              SS_LSFT(SS_TAP(X_LEFT) SS_TAP(X_RGHT)))
+            // Replace the selection with a single space.
+            SS_TAP(X_SPC));
+      }
+      return false;
+    case SRCHSEL:  // Searches the current selection in a new tab.
+      if (record->event.pressed) {
+        // Mac users, change LCTL to LGUI.
+        SEND_STRING(SS_LCTL("ct") SS_DELAY(200) SS_LCTL("v") SS_TAP(X_ENTER));
+      }
+      return false;
+    case BRACES:  // Types [], {}, or <> and puts cursor between braces.
+      if (record->event.pressed) {
+        clear_oneshot_mods();  // Temporarily disable mods.
+        unregister_mods(MOD_MASK_CSAG);
+        if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
+          SEND_STRING("{}");
+        } else if ((mods | oneshot_mods) & MOD_MASK_CTRL) {
+          SEND_STRING("<>");
+        } else {
+          SEND_STRING("[]");
+        }
+        tap_code(KC_LEFT);  // Move cursor between braces.
+        register_mods(mods);  // Restore mods.
+      }
+      return false;
 # if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
     case SH_OS:
-      if (event.pressed) {
+      if (record->event.pressed) {
         if (record->tap.count == ONESHOT_TAP_TOGGLE) {
             swap_hands_on();
-            is_swap_hands_on = true;
+            is_swap_hands_tap_toggle_on = true;
             return false;
           }
       } else {
-          if (record->tap.count == 1 && is_swap_hands_on) {
+          if (record->tap.count == 1 && is_swap_hands_tap_toggle_on) {
             swap_hands_off();
-            is_swap_hands_on = false;
+            is_swap_hands_tap_toggle_on = false;
             return false;
           }
       }
@@ -952,20 +933,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void matrix_scan_user(void){
-  if(is_alt_tab_active){
-    if(timer_elapsed(alt_tab_timer)>SUPER_TAB_TIME_ACTIVE){
-        unregister_code(KC_LALT);
-        is_alt_tab_active = false;
-    }
-  }
-  if(is_ctrl_tab_active){
-    if(timer_elapsed(ctrl_tab_timer)>SUPER_TAB_TIME_ACTIVE){
-        unregister_code(KC_LCTL);
-        is_ctrl_tab_active = false;
-    }
-  }
-}
 
 bool apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *correct) {
   if (get_highest_layer(layer_state) != 0)
@@ -1026,14 +993,10 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
             } else {              // Otherwise, the last key was Tab,
                 return S(KC_TAB); // ... and the reverse is Shift + Tab.
             }
-        case ALT_TAB:
-            return SHFT_ALT_TAB;
-        case SHFT_ALT_TAB:
-            return ALT_TAB;
-        case CTRL_TAB:
-            return SHFT_CTRL_TAB;
-        case SHFT_CTRL_TAB:
-            return CTRL_TAB;
+        case A(KC_TAB): return S(A(KC_TAB));
+        case S(A(KC_TAB)): return A(KC_TAB);
+        case C(KC_TAB): return S(C(KC_TAB));
+        case S(C(KC_TAB)): return C(KC_TAB);
     }
 
     return KC_TRNS;  // Defer to default definitions.
