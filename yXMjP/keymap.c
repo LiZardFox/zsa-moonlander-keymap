@@ -1241,7 +1241,34 @@ void leader_end_user(void) {
     } else if (leader_sequence_two_keys(KC_S, KC_Z)) {
       // Leader s, z => ß
         process_alt_num_key("0223");
+  // Stream
+    } else if (leader_sequence_three_keys(KC_S, KC_K, KC_B)) {
+      // Leader s, k, b => KonBooba
+      SEND_STRING("KonBooba");
+    } else if (leader_sequence_two_keys(KC_S, KC_O)) {
+      // Leader s, o => Otsu
+      SEND_STRING("Otsu");
+    } else if (leader_sequence_three_keys(KC_S, KC_O, KC_N)) {
+      // Leader s, o, n => OtsuNanoyo
+      SEND_STRING("OtsuNanoyo");
+    } else if (leader_sequence_three_keys(KC_S, KC_W, KC_R)) {
+      // Leader s, w, r => Welcome Raiders
+      SEND_STRING("Welcome Raiders");
+  // Emotes
+    } else if (leader_sequence_four_keys(KC_S, KC_E, KC_S, KC_L)) {
+      // Leader s, e, s, l => :_SinonLove:
+          SEND_STRING(":_SinonLove:");
+    } else if (leader_sequence_four_keys(KC_S, KC_E, KC_S, KC_C)) {
+      // Leader s, e, s, l => :_SinonCheer:
+          SEND_STRING(":_SinonCheer:");
+    } else if (leader_sequence_four_keys(KC_S, KC_E, KC_S, KC_S)) {
+      // Leader s, e, s, l => :_SinonSmug:
+          SEND_STRING(":_SinonSmug:");
+    } else if (leader_sequence_four_keys(KC_S, KC_E, KC_S, KC_Y)) {
+      // Leader s, e, s, l => :_SinonCry:
+          SEND_STRING(":_SinonCry:");
     }
+
 }
 
 
