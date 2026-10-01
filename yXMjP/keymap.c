@@ -1030,10 +1030,10 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
         switch (keycode) {
         case LSFT_T(KC_E):
         case RSFT_T(KC_T):
-            return 0;
+            return FLOW_TAP_TERM - 70;
         case LT(2, KC_O):
         case LT(2, KC_N):
-            return 60;
+            return FLOW_TAP_TERM - 40;
         default:
           return FLOW_TAP_TERM;
         }
