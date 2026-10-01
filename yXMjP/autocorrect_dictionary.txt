@@ -535,10 +535,6 @@ beautyfull:         -> beautiful
 becamae             -> became
 becames             -> became
 becasue             -> because
-becausea            -> because a
-becauseof           -> because of
-becausethe          -> because the
-becauseyou          -> because you
 beccause            -> because
 becomeing           -> becoming
 becomming           -> becoming
@@ -552,7 +548,6 @@ begginer            -> beginner
 beggining           -> beginning
 beggins             -> begins
 begining            -> beginning
-beginining          -> beginning
 beginnig            -> beginning
 behabviour          -> behaviour
 behaivior           -> behaviour
@@ -636,7 +631,6 @@ cannnot             -> cannot
 cannonical:         -> canonical
 caontains           -> contains
 caost               -> coast
-capible             -> capable
 captial             -> capital
 captued             -> captured
 capturd             -> captured
@@ -695,7 +689,6 @@ changable           -> changeable
 changably           -> changeably
 changeing           -> changing
 changng             -> changing
-charachter          -> character
 charactor           -> character
 charecter           -> character
 charector           -> character
@@ -1521,9 +1514,7 @@ imigration          -> immigration
 iminent             -> imminent
 immediatly          -> immediately
 immidately          -> immediately
-immitate            -> imitate
-immitating          -> imitating
-immitator           -> imitator
+immitat             -> imitat
 impecabbly          -> impeccably
 impedence           -> impedance
 impilies            -> implies
@@ -1551,8 +1542,7 @@ indutrial           -> industrial
 indviduals          -> individuals
 inevatible          -> inevitable
 inevitible          -> inevitable
-inevititab      -> inevitab
-infalabil        -> infallibil
+infalabil           -> infallibil
 infallable          -> infallible
 infectuous          -> infectious
 infered             -> inferred
@@ -2765,7 +2755,6 @@ terriory            -> territory
 territoy            -> territory
 terroist            -> terrorist
 testomony           -> testimony
-tghis               -> this
 thansk              -> thanks
 thatthe             -> that the
 theather            -> theater
@@ -2782,7 +2771,6 @@ therby              -> thereby
 therfore            -> therefore
 thesame             -> the same
 thetwo              -> the two
-thgat               -> that
 thign               -> thing
 thigsn              -> things
 thikn               -> think
