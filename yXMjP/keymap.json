@@ -5,7 +5,6 @@
         "zsa/defaults",
         "getreuer/sentence_case",
         "getreuer/select_word",
-        "getreuer/speculative_hold",
         "getreuer/cyclotab",
         "getreuer/orbital_mouse"
     ]

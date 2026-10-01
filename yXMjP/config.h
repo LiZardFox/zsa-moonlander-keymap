@@ -213,4 +213,4 @@
 
 // getreuer cyclotab
 #define CYCLOTAB_TIMEOUT 700
-#define CYCLOTAB_KEYS C(KC_TAB)
+#define CYCLOTAB_KEYS C(KC_TAB), A(KC_TAB)
