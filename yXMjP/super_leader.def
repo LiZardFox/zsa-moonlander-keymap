@@ -1,0 +1,40 @@
+// default for leader when nothing else is pressed
+SEQ_KEY(leader_default, (), KC_COMMA)
+
+// braces
+SEQ_STR(tag,  (KC_A), "<>" SS_TAP(X_LEFT))
+SEQ_STR(prnt, (KC_P), "()" SS_TAP(X_LEFT))
+SEQ_STR(brck, (KC_S), "[]" SS_TAP(X_LEFT))
+SEQ_STR(cbrk, (KC_C), "{}" SS_TAP(X_LEFT))
+SEQ_STR(dqot, (KC_D), SS_TAP(X_DQUO) SS_TAP(X_DQUO) SS_TAP(X_LEFT))
+
+// git
+SEQ_STR(gits, (KC_G, KC_S), "git status" SS_TAP(X_ENTER))
+SEQ_STR(gitp, (KC_G, KC_P), "git push" SS_TAP(X_ENTER))
+SEQ_STR(gitc, (KC_G, KC_C), "git add -A ; git commit -m ")
+SEQ_STR(gitf, (KC_G, KC_F), "git fetch" SS_TAP(X_ENTER))
+SEQ_STR(gitm, (KC_G, KC_M), "git merge origin/oryx" SS_TAP(X_ENTER))
+
+
+// SQL
+SEQ_STR(sqls, (KC_S, KC_E), "SELECT * FROM ")
+SEQ_STR(sqlf, (KC_S, KC_F), "FROM ")
+SEQ_STR(sqlw, (KC_S, KC_W), "WHERE ")
+
+
+// Shortcuts
+SEQ_STR(sacp, (KC_S, KC_A), SS_LCTL("ac"))
+SEQ_STR(rpla, (KC_R, KC_A), SS_LCTL("av"))
+SEQ_KEY(ctlv, (KC_V),       C(KC_V))
+
+// QMK
+SEQ_KEY(dfu, (KC_D, KC_F, KC_U), QK_BOOT)
+
+// account
+SEQ_STR(wee, (KC_W, KC_E, KC_E), "tim.zimmermann@ewm-group.com")
+
+// Live Stream Chatting
+
+SEQ_STR(konb, (KC_S, KC_K, KC_B), "KonBooba")
+SEQ_STR(otsu, (KC_S, KC_O),       "Otsu")
+SEQ_STR(otsn, (KC_S, KC_O, KC_N), "OtsuNanoyo")

@@ -205,12 +205,13 @@
 #    endif
 #endif
 
-#define LEADER_NO_TIMEOUT
-#define LEADER_PER_KEY_TIMING
-#define LEADER_TIMEOUT 250
 #define ONESHOT_TAP_TOGGLE 3
 #define ONESHOT_TIMEOUT 5000
 
 // getreuer cyclotab
 #define CYCLOTAB_TIMEOUT 700
 #define CYCLOTAB_KEYS C(KC_TAB), A(KC_TAB)
+
+// getreuer super leader
+#define SUPER_LEADER_NO_INIT_TIMEOUT
+#define SUPER_LEADER_TIMEOUT  1000

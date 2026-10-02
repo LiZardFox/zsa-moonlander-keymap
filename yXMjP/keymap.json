@@ -4,6 +4,7 @@
         "zsa/mousejiggler",
         "zsa/defaults",
         "getreuer/sentence_case",
+        "getreuer/super_leader",
         "getreuer/select_word",
         "getreuer/cyclotab",
         "getreuer/orbital_mouse"

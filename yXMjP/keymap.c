@@ -76,7 +76,7 @@ enum tap_dance_codes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_moonlander(
     TD(DANCE_0),    KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,                                          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,         TD(DANCE_1),    
-    KC_BSLS,        KC_QUOTE,       KC_COMMA,       KC_DOT,         KC_P,           KC_Y,           KC_TRANSPARENT,                                 TD(DANCE_2),    KC_F,           KC_G,           KC_C,           KC_R,           KC_L,           KC_SLASH,       
+    KC_BSLS,        KC_QUOTE,       LEADER,       KC_DOT,         KC_P,           KC_Y,           KC_TRANSPARENT,                                 TD(DANCE_2),    KC_F,           KC_G,           KC_C,           KC_R,           KC_L,           KC_SLASH,       
     LT(4, KC_EQUAL),MT(MOD_LALT, KC_A),LT(2, KC_O),    MT(MOD_LSFT, KC_E),MT(MOD_LCTL, KC_U),KC_I,           KC_TRANSPARENT,                                                                 KC_TRANSPARENT, KC_D,           MT(MOD_RCTL, KC_H),MT(MOD_RSFT, KC_T),LT(2, KC_N),    MT(MOD_RALT, KC_S),LT(3, KC_MINUS),
     SH_OS,          KC_SCLN,        KC_Q,           MEH_T(KC_J),    KC_K,           KC_X,                                           KC_B,           KC_M,           MEH_T(KC_W),    KC_V,           KC_Z,           SH_OS,         
     TT(2),          TT(4),          TT(5),          DM_REC1,        QK_ALT_REPEAT_KEY,         DM_PLY1,                                                                                                        DM_PLY2,        QK_REPEAT_KEY,         DM_REC2,        TT(5),          TT(4),          TT(2),          
@@ -245,7 +245,7 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo39, CW_TOGG),
     COMBO(combo40, KC_CAPS),
     COMBO(combo41, CW_TOGG),
-    COMBO(combo42, QK_LEAD),
+    COMBO(combo42, LEADER),
     COMBO(combo43, NEXTSEN),
 };
 
@@ -1107,149 +1107,20 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-
-void leader_start_user(void) {
-#ifdef AUDIO_ENABLE
-    PLAY_SONG(one_up_sound);
-#endif
-}
-
-void leader_end_user(void) {
-    if (leader_sequence_one_key(KC_A)) {
-        // Leader, a => <>
-        SEND_STRING("<>");
-        tap_code16(KC_LEFT);
-    } else if (leader_sequence_one_key(KC_C)) {
-        // Leader, c => {}
-        SEND_STRING("{}");
-        tap_code16(KC_LEFT);
-    } else if (leader_sequence_one_key(KC_D)){
-        // Leader, d => ""
-        tap_code16(KC_DQUO);
-        tap_code16(KC_DQUO);
-        tap_code16(KC_LEFT);
-    } else if (leader_sequence_two_keys(KC_D, KC_D)){
-        // Leader, d d d=> """"""
-        tap_code16(KC_DQUO);
-        tap_code16(KC_DQUO);
-        tap_code16(KC_DQUO);
-        tap_code16(KC_DQUO);
-        tap_code16(KC_DQUO);
-        tap_code16(KC_DQUO);
-        tap_code16(KC_LEFT);
-        tap_code16(KC_LEFT);
-        tap_code16(KC_LEFT);
-        tap_code16(KC_ENTER);
-    } else if (leader_sequence_one_key(KC_P)) {
-        // Leader, p => ()
-        SEND_STRING("()");
-        tap_code16(KC_LEFT);
-    } else if (leader_sequence_one_key(KC_S)) {
-        // Leader, s => []
-        SEND_STRING("[]");
-        tap_code16(KC_LEFT);
-  // git
-    } else if (leader_sequence_two_keys(KC_G, KC_S)) {
-        // Leader, g, s => git status
-        SEND_STRING("git status"SS_TAP(X_ENTER));
-    } else if (leader_sequence_two_keys(KC_G, KC_P)) {
-        // Leader, g, p => git push
-        SEND_STRING("git push"SS_TAP(X_ENTER));
-    } else if (leader_sequence_two_keys(KC_G, KC_C)) {
-        // Leader, g, c => git add -A && git commit -m ""
-        SEND_STRING("git add -A ; git commit -m ");
-        tap_code16(KC_DQUO);
-        tap_code16(KC_DQUO);
-        tap_code16(KC_LEFT);
-    } else if (leader_sequence_two_keys(KC_G, KC_F)) {
-        // Leader, g, f => git fetch
-        SEND_STRING("git fetch"SS_TAP(X_ENTER));
-    } else if (leader_sequence_two_keys(KC_G, KC_M)) {
-        // Leader, g, m => git merge origin/oryx
-        SEND_STRING("git merge origin/oryx"SS_TAP(X_ENTER));
-  // Text
-    } else if (leader_sequence_two_keys(KC_T, KC_T)) {
-      // Leader, t, t => Thank you
-      SEND_STRING("Thank you");
-    } else if (leader_sequence_two_keys(KC_T, KC_X)) {
-      // Leader, t, x => Thanks 
-      SEND_STRING("Thanks");
-  // SQL
-    } else if (leader_sequence_two_keys(KC_S, KC_E)) {
-        // Leader, s, e => SELECT * FROM ;
-        SEND_STRING("SELECT * FROM ");
-    } else if (leader_sequence_two_keys(KC_F, KC_F)) {
-        // Leader, f, f => FROM ;
-        SEND_STRING("FROM ");
-    } else if (leader_sequence_two_keys(KC_W, KC_W)) {
-        // Leader, w, w => WHERE ;
-        SEND_STRING("WHERE ");
-  // code 
-    } else if (leader_sequence_two_keys(KC_P, KC_F)) {
-      SEND_STRING("def ():");
-      tap_code16(KC_ENTER);
-      tap_code16(KC_UP);
-      tap_code16(KC_END);
-      tap_code16(KC_LEFT);
-      tap_code16(KC_LEFT);
-      tap_code16(KC_LEFT);
-    // Shortcuts
-    } else if (leader_sequence_two_keys(KC_S, KC_A)) {
-      SEND_STRING(SS_LCTL("a")SS_DELAY(20)SS_LCTL("c"));
-    } else if (leader_sequence_two_keys(KC_R, KC_A)) {
-      SEND_STRING(SS_LCTL("a")SS_DELAY(20)SS_LCTL("v"));
-  // German
-    } else if (leader_sequence_two_keys(KC_A, KC_E)) {
-      // Leader a, e => ä
-        process_alt_num_key("0228");
-    } else if (leader_sequence_three_keys(KC_T, KC_A, KC_E)) {
-      // Leader t, a, e => Ä
-        process_alt_num_key("0196");
-    } else if (leader_sequence_two_keys(KC_O, KC_E)) {
-      // Leader o, e => ö
-        process_alt_num_key("0246");
-    } else if (leader_sequence_three_keys(KC_T, KC_O, KC_E)) {
-      // Leader t, ö, e => Ö
-        process_alt_num_key("0214");
-    } else if (leader_sequence_two_keys(KC_U, KC_E)) {
-      // Leader u, e => ü
-        process_alt_num_key("0252");
-    } else if (leader_sequence_three_keys(KC_T, KC_U, KC_E)) {
-      // Leader t, u, e => Ü
-        process_alt_num_key("0220");
-    } else if (leader_sequence_two_keys(KC_S, KC_Z)) {
-      // Leader s, z => ß
-        process_alt_num_key("0223");
-  // Stream
-    } else if (leader_sequence_three_keys(KC_S, KC_K, KC_B)) {
-      // Leader s, k, b => KonBooba
-      SEND_STRING("KonBooba");
-    } else if (leader_sequence_two_keys(KC_S, KC_O)) {
-      // Leader s, o => Otsu
-      SEND_STRING("Otsu");
-    } else if (leader_sequence_three_keys(KC_S, KC_O, KC_N)) {
-      // Leader s, o, n => OtsuNanoyo
-      SEND_STRING("OtsuNanoyo");
-    } else if (leader_sequence_three_keys(KC_S, KC_W, KC_R)) {
-      // Leader s, w, r => Welcome Raiders
-      SEND_STRING("Welcome Raiders");
-  // Emotes
-    } else if (leader_sequence_four_keys(KC_S, KC_E, KC_S, KC_L)) {
-      // Leader s, e, s, l => :_SinonLove:
-          SEND_STRING(":_SinonLove:");
-    } else if (leader_sequence_four_keys(KC_S, KC_E, KC_S, KC_C)) {
-      // Leader s, e, s, l => :_SinonCheer:
-          SEND_STRING(":_SinonCheer:");
-    } else if (leader_sequence_four_keys(KC_S, KC_E, KC_S, KC_S)) {
-      // Leader s, e, s, l => :_SinonSmug:
-          SEND_STRING(":_SinonSmug:");
-    } else if (leader_sequence_four_keys(KC_S, KC_E, KC_S, KC_Y)) {
-      // Leader s, e, s, l => :_SinonCry:
-          SEND_STRING(":_SinonCry:");
+void super_leader_add_user(
+  const uint16_t* seq, uint8_t num_seq, bool*partial
+) {
+    // "A, <key>, <same key>" where <key> is a letter => Taps AltGr+<key>.
+    if (SUPER_LEADER_SEQ_STARTS_WITH((KC_A), partial) &&
+        KC_A <= seq[1] && seq[1] <= KC_Z) {
+      if (num_seq < 3) {
+        *partial = true;
+      } else if (num_seq == 3 && seq[1] == seq[2]) {
+        uint16_t modded_keycode = ALGR(seq[1]);
+        super_leader_set_match(SUPER_LEADER_KEY(modded_keycode));
+      }
     }
-
-}
-
+  }
 
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
