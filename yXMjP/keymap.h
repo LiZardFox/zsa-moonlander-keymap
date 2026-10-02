@@ -66,10 +66,19 @@ enum layer_names {
 #define LGUI_ESC  MT(MOD_LGUI, KC_ESCAPE)
 
 // Shortcuts
+#define S_TAB S(KC_TAB)
 #define SA_TAB S(A(KC_TAB))
 #define A_TAB A(KC_TAB)
 #define SC_TAB S(C(KC_TAB))
 #define C_TAB C(KC_TAB)
+#define EMOJI LGUI(KC_DOT)
+
+// Navigation
+#define WLEFT LCTL(KC_LEFT)
+#define WRGHT LCTL(KC_RGHT)
+#define DOKUP LCTL(KC_HOME)
+#define DOKDN LCTL(KC_END)
+
 
 #define UNDO LCTL(KC_Z)
 #define REDO LCTL(KC_Y)

@@ -1,4 +1,4 @@
-dance_state[7]#include QMK_KEYBOARD_H
+#include QMK_KEYBOARD_H
 #include "version.h"
 #include "keymap_us_international.h"
 #include "sendstring_us_international.h"
@@ -45,7 +45,7 @@ LAYOUT_moonlander(
 ),
 
 [STEN] = LAYOUT_moonlander(
-    TD_BAGA,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  QK_BOLT,          QK_GEMI,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  TD_BAGA,
+    TD_BAGA,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,          XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  TD_BAGA,
     XXXXXXX,  STN_N1,   STN_N2,   STN_N3,   STN_N4,   STN_N5,   XXXXXXX,          XXXXXXX,  STN_N6,   STN_N7,   STN_N8,   STN_N9,   STN_NA,   STN_NB,
     XXXXXXX,  STN_S1,   STN_TL,   STN_PL,   STN_HL,   STN_ST1,  XXXXXXX,          XXXXXXX,  STN_ST3,  STN_FR,   STN_PR,   STN_LR,   STN_TR,   STN_DR,
     XXXXXXX,  STN_S2,   STN_KL,   STN_WL,   STN_RL,   STN_ST2,                              STN_ST4,  STN_RR,   STN_BR,   STN_GR,   STN_SR,   STN_ZR,  
@@ -126,12 +126,12 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
                  '*', '*', '*', '*', '*', '*'
 );
 
-const uint16_t PROGMEM combo0[] = { KC_Q, MT(MOD_LSFT, KC_E), LT(2, KC_O), MEH_T(KC_J), COMBO_END};
+const uint16_t PROGMEM combo0[] = { KC_Q, HOME_E, HOME_O, MEH_J, COMBO_END};
 const uint16_t PROGMEM combo1[] = { KC_D, KC_C, KC_X, KC_S, COMBO_END};
-const uint16_t PROGMEM combo2[] = { KC_SCLN, MT(MOD_LALT, KC_A), COMBO_END};
-const uint16_t PROGMEM combo3[] = { KC_Q, LT(2, KC_O), COMBO_END};
-const uint16_t PROGMEM combo4[] = { MT(MOD_LCTL, KC_U), KC_K, COMBO_END};
-const uint16_t PROGMEM combo5[] = { KC_Z, MT(MOD_RALT, KC_S), COMBO_END};
+const uint16_t PROGMEM combo2[] = { KC_SCLN, HOME_A, COMBO_END};
+const uint16_t PROGMEM combo3[] = { KC_Q, HOME_O, COMBO_END};
+const uint16_t PROGMEM combo4[] = { HOME_U, KC_K, COMBO_END};
+const uint16_t PROGMEM combo5[] = { KC_Z, HOME_S, COMBO_END};
 const uint16_t PROGMEM combo6[] = { KC_A, KC_Z, KC_X, KC_S, COMBO_END};
 const uint16_t PROGMEM combo7[] = { KC_1, KC_2, COMBO_END};
 const uint16_t PROGMEM combo8[] = { KC_2, KC_3, COMBO_END};
@@ -140,44 +140,44 @@ const uint16_t PROGMEM combo10[] = { KC_O, KC_I, COMBO_END};
 const uint16_t PROGMEM combo11[] = { KC_I, KC_U, COMBO_END};
 const uint16_t PROGMEM combo12[] = { KC_O, KC_I, KC_U, COMBO_END};
 const uint16_t PROGMEM combo13[] = { KC_1, KC_3, COMBO_END};
-const uint16_t PROGMEM combo14[] = { KC_SCLN, MT(MOD_LSFT, KC_E), LT(2, KC_O), MT(MOD_LALT, KC_A), KC_Q, MEH_T(KC_J), COMBO_END};
+const uint16_t PROGMEM combo14[] = { KC_SCLN, HOME_E, HOME_O, HOME_A, KC_Q, MEH_J, COMBO_END};
 const uint16_t PROGMEM combo15[] = { KC_CAPS, KC_LEFT_CTRL, KC_Z, KC_A, KC_S, KC_X, COMBO_END};
-const uint16_t PROGMEM combo16[] = { KC_Q, MT(MOD_RSFT, KC_T), LT(2, KC_N), MEH_T(KC_J), COMBO_END};
-const uint16_t PROGMEM combo17[] = { MT(MOD_LSFT, KC_E), KC_V, LT(2, KC_O), MEH_T(KC_W), COMBO_END};
-const uint16_t PROGMEM combo18[] = { MT(MOD_RSFT, KC_T), MEH_T(KC_W), COMBO_END};
-const uint16_t PROGMEM combo19[] = { KC_M, MT(MOD_RSFT, KC_T), COMBO_END};
-const uint16_t PROGMEM combo20[] = { MT(MOD_RSFT, KC_T), KC_V, COMBO_END};
-const uint16_t PROGMEM combo21[] = { LT(2, KC_N), KC_V, MT(MOD_RSFT, KC_T), MEH_T(KC_W), COMBO_END};
-const uint16_t PROGMEM combo22[] = { MT(MOD_RCTL, KC_H), KC_M, KC_V, LT(2, KC_N), COMBO_END};
-const uint16_t PROGMEM combo23[] = { MT(MOD_RCTL, KC_H), KC_M, MEH_T(KC_W), MT(MOD_RSFT, KC_T), COMBO_END};
-const uint16_t PROGMEM combo24[] = { MT(MOD_RCTL, KC_H), MEH_T(KC_W), KC_V, COMBO_END};
-const uint16_t PROGMEM combo25[] = { LT(2, KC_N), KC_V, COMBO_END};
-const uint16_t PROGMEM combo26[] = { KC_M, MT(MOD_RCTL, KC_H), MT(MOD_RSFT, KC_T), LT(2, KC_N), KC_V, MEH_T(KC_W), COMBO_END};
-const uint16_t PROGMEM combo27[] = { KC_M, MT(MOD_RSFT, KC_T), KC_V, COMBO_END};
-const uint16_t PROGMEM combo28[] = { MT(MOD_RCTL, KC_H), MT(MOD_RSFT, KC_T), MEH_T(KC_W), KC_V, COMBO_END};
-const uint16_t PROGMEM combo29[] = { KC_V, MEH_T(KC_W), COMBO_END};
-const uint16_t PROGMEM combo30[] = { KC_M, MEH_T(KC_W), COMBO_END};
-const uint16_t PROGMEM combo31[] = { MT(MOD_RCTL, KC_H), MT(MOD_RSFT, KC_T), LT(2, KC_N), COMBO_END};
-const uint16_t PROGMEM combo32[] = { KC_M, MEH_T(KC_W), KC_V, COMBO_END};
+const uint16_t PROGMEM combo16[] = { KC_Q, HOME_T, HOME_N, MEH_J, COMBO_END};
+const uint16_t PROGMEM combo17[] = { HOME_E, KC_V, HOME_O, MEH_W, COMBO_END};
+const uint16_t PROGMEM combo18[] = { HOME_T, MEH_W, COMBO_END};
+const uint16_t PROGMEM combo19[] = { KC_M, HOME_T COMBO_END};
+const uint16_t PROGMEM combo20[] = { HOME_T, KC_V, COMBO_END};
+const uint16_t PROGMEM combo21[] = { HOME_N, KC_V, HOME_T, MEH_W, COMBO_END};
+const uint16_t PROGMEM combo22[] = { HOME_H, KC_M, KC_V, HOME_N, COMBO_END};
+const uint16_t PROGMEM combo23[] = { HOME_H, KC_M, MEH_W, HOME_T, COMBO_END};
+const uint16_t PROGMEM combo24[] = { HOME_H, MEH_W, KC_V, COMBO_END};
+const uint16_t PROGMEM combo25[] = { HOME_N, KC_V, COMBO_END};
+const uint16_t PROGMEM combo26[] = { KC_M, HOME_H, HOME_T, HOME_N, KC_V, MEH_W, COMBO_END};
+const uint16_t PROGMEM combo27[] = { KC_M, HOME_T, KC_V, COMBO_END};
+const uint16_t PROGMEM combo28[] = { HOME_H, HOME_T, MEH_W, KC_V, COMBO_END};
+const uint16_t PROGMEM combo29[] = { KC_V, MEH_W, COMBO_END};
+const uint16_t PROGMEM combo30[] = { KC_M, MEH_W, COMBO_END};
+const uint16_t PROGMEM combo31[] = { HOME_H, HOME_T, HOME_N, COMBO_END};
+const uint16_t PROGMEM combo32[] = { KC_M, MEH_W, KC_V, COMBO_END};
 const uint16_t PROGMEM combo33[] = { KC_DOWN, KC_LEFT, COMBO_END};
-const uint16_t PROGMEM combo34[] = { DUAL_FUNC_0, KC_UP, DUAL_FUNC_1, COMBO_END};
+const uint16_t PROGMEM combo34[] = { HOM_SFT, KC_UP, END_SFT, COMBO_END};
 const uint16_t PROGMEM combo35[] = { KC_DOWN, KC_LEFT, KC_RIGHT, COMBO_END};
 const uint16_t PROGMEM combo36[] = { KC_DOWN, KC_RIGHT, COMBO_END};
 const uint16_t PROGMEM combo37[] = { KC_DOT, KC_P, COMBO_END};
 const uint16_t PROGMEM combo38[] = { KC_G, KC_C, COMBO_END};
-const uint16_t PROGMEM combo39[] = { MEH_T(KC_W), KC_M, KC_K, MEH_T(KC_J), COMBO_END};
+const uint16_t PROGMEM combo39[] = { MEH_W, KC_M, KC_K, MEH_J, COMBO_END};
 const uint16_t PROGMEM combo40[] = { KC_RIGHT_GUI, LT(4, KC_ENTER), COMBO_END};
 const uint16_t PROGMEM combo41[] = { KC_SPACE, LT(4, KC_ENTER), COMBO_END};
-const uint16_t PROGMEM combo42[] = { MT(MOD_RCTL, KC_H), MT(MOD_LCTL, KC_U), MT(MOD_RSFT, KC_T), MT(MOD_LSFT, KC_E), COMBO_END};
-const uint16_t PROGMEM combo43[] = { LT(2, KC_O), MT(MOD_LSFT, KC_E), MT(MOD_RSFT, KC_T),LT(2, KC_N), COMBO_END};
+const uint16_t PROGMEM combo42[] = { HOME_H, MT(MOD_LCTL, KC_U), HOME_T, HOME_E, COMBO_END};
+const uint16_t PROGMEM combo43[] = { HOME_O, HOME_E, HOME_T, HOME_N, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-    COMBO(combo0, LGUI(KC_DOT)),
-    COMBO(combo1, LALT(KC_TAB)),
-    COMBO(combo2, ST_MACRO_6),
-    COMBO(combo3, ST_MACRO_7),
-    COMBO(combo4, ST_MACRO_8),
-    COMBO(combo5, ST_MACRO_9),
+    COMBO(combo0, EMOJI),
+    COMBO(combo1, A_TAB),
+    COMBO(combo2, GER_AE),
+    COMBO(combo3, GER_OE),
+    COMBO(combo4, GER_UE),
+    COMBO(combo5, GER_SZ),
     COMBO(combo6, KC_MEDIA_PLAY_PAUSE),
     COMBO(combo7, KC_4),
     COMBO(combo8, KC_5),
@@ -186,14 +186,14 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo11, KC_8),
     COMBO(combo12, KC_9),
     COMBO(combo13, KC_0),
-    COMBO(combo14, TO(6)),
-    COMBO(combo15, TO(0)),
+    COMBO(combo14, TO(GAME)),
+    COMBO(combo15, TO(BASE)),
     COMBO(combo16, KC_QUES),
     COMBO(combo17, KC_EXLM),
     COMBO(combo18, KC_PIPE),
-    COMBO(combo19, KC_SLASH),
+    COMBO(combo19, KC_SLSH),
     COMBO(combo20, KC_BSLS),
-    COMBO(combo21, KC_EQUAL),
+    COMBO(combo21, KC_EQL),
     COMBO(combo22, KC_HASH),
     COMBO(combo23, KC_PERC),
     COMBO(combo24, KC_AMPR),
@@ -205,11 +205,11 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo30, KC_SCLN),
     COMBO(combo31, KC_LPRN),
     COMBO(combo32, KC_RPRN),
-    COMBO(combo33, LCTL(KC_LEFT)),
-    COMBO(combo34, LCTL(KC_HOME)),
-    COMBO(combo35, LCTL(KC_END)),
-    COMBO(combo36, LCTL(KC_RIGHT)),
-    COMBO(combo37, LSFT(KC_TAB)),
+    COMBO(combo33, WLEFT),
+    COMBO(combo34, DOKUP),
+    COMBO(combo35, DOKDN),
+    COMBO(combo36, WRGHT)
+    COMBO(combo37, S_TAB),
     COMBO(combo38, KC_TAB),
     COMBO(combo39, CW_TOGG),
     COMBO(combo40, KC_CAPS),
@@ -685,18 +685,6 @@ static bool process_dead_key(uint16_t keycode, keyrecord_t *record) {
   return false; // Skip all further processing of this key
 }
 
-uint32_t jiggler_callback(uint32_t trigger_time, void* cb_arg) {
-  static const int8_t deltas[32] = {
-    -1, -2, -4, -5, -6, -7, -8, -8, -8, -8, -7, -6, -5, -4, -2, -1,  1,  2,  4,  5,  6,  7,  8,  8, 8,  8,  7,  6,  5,  4,  2,  1
-  };
-  static uint8_t phase = 0;
-  report.x = deltas[phase];
-  report.y = deltas[(phase + 8) & 31]
-  phase = (phase + 1) & 31;
-  host_mouse_send(&report);
-  return 16;
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_dead_key(keycode, record)) { return false; }
   if (!process_quopostrokey(keycode, record)) { return false; }
@@ -710,6 +698,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       report = (report_mouse_t){};
       host_mouse_send(&report);
     } else if (keycode == JIGGLE) {
+      
+      uint32_t jiggler_callback(uint32_t trigger_time, void* cb_arg) {
+        static const int8_t deltas[32] = {
+          -1, -2, -4, -5, -6, -7, -8, -8, -8, -8, -7, -6, -5, -4, -2, -1,  1,  2,  4,  5,  6,  7,  8,  8, 8,  8,  7,  6,  5,  4,  2,  1
+        };
+        static uint8_t phase = 0;
+        report.x = deltas[phase];
+        report.y = deltas[(phase + 8) & 31];
+        phase = (phase + 1) & 31;
+        host_mouse_send(&report);
+        return 16;
+      }
+
       token = defer_exec(1, jiggler_callback, NULL);
     }
   }
@@ -774,16 +775,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
 
 
-        case EURO_SIGN:
+        case CR_EURO:
         if (record->event.pressed) {
           process_alt_num_key("00128");
         }
         return false;
-        case EMPT_FUNC:
-        if (record->event.pressed) {
-          SEND_STRING("()=>{" SS_TAP(X_ENTER));
-        }
-        break;
         
         case NOTE_PAD:
         if (record->event.pressed) {
@@ -794,18 +790,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case VS_CODE:
         if (record->event.pressed) {
           SEND_STRING(SS_LGUI("r")SS_DELAY(50) "code" SS_TAP(X_ENTER));
-        }
-        break;
-      
-        case VS_WIND_LEFT:
-        if (record->event.pressed) {
-          SEND_STRING(SS_LCTL(SS_TAP(X_K))SS_DELAY(1)  SS_LCTL(SS_TAP(X_LEFT)));
-        }
-        break;
-      
-        case VS_WIND_RIGHT:
-        if (record->event.pressed) {
-          SEND_STRING(SS_LCTL(SS_TAP(X_K))SS_DELAY(1)  SS_LCTL(SS_TAP(X_RIGHT)));
         }
         break;
         
