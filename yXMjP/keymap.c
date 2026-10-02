@@ -54,6 +54,7 @@ enum custom_keycodes {
   JOINLN,
   SRCHSEL,
   BRACES,
+  QUOP
 };
 
 
@@ -76,7 +77,7 @@ enum tap_dance_codes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_moonlander(
     TD(DANCE_0),    KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,                                          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,         TD(DANCE_1),    
-    KC_BSLS,        KC_QUOTE,       LEADER,       KC_DOT,         KC_P,           KC_Y,           KC_TRANSPARENT,                                 TD(DANCE_2),    KC_F,           KC_G,           KC_C,           KC_R,           KC_L,           KC_SLASH,       
+    KC_BSLS,        QUOP,       LEADER,       KC_DOT,         KC_P,           KC_Y,           KC_TRANSPARENT,                                 TD(DANCE_2),    KC_F,           KC_G,           KC_C,           KC_R,           KC_L,           KC_SLASH,       
     LT(4, KC_EQUAL),MT(MOD_LALT, KC_A),LT(2, KC_O),    MT(MOD_LSFT, KC_E),MT(MOD_LCTL, KC_U),KC_I,           KC_TRANSPARENT,                                                                 KC_TRANSPARENT, KC_D,           MT(MOD_RCTL, KC_H),MT(MOD_RSFT, KC_T),LT(2, KC_N),    MT(MOD_RALT, KC_S),LT(3, KC_MINUS),
     SH_OS,          KC_SCLN,        KC_Q,           MEH_T(KC_J),    KC_K,           KC_X,                                           KC_B,           KC_M,           MEH_T(KC_W),    KC_V,           KC_Z,           SH_OS,         
     TT(2),          TT(4),          TT(5),          DM_REC1,        QK_ALT_REPEAT_KEY,         DM_PLY1,                                                                                                        DM_PLY2,        QK_REPEAT_KEY,         DM_REC2,        TT(5),          TT(4),          TT(2),          
@@ -685,7 +686,51 @@ static void process_num_lock_alteration(uint16_t keycode, uint16_t numl_keycode,
   }  
 }
 
+static bool process_quopostrokey(uint16_t keycode, keyrecord_t *record) {
+  static bool within_word = false;
+
+  if (keycode == QUOP) {
+    if (record->event.pressed) {
+      if (within_word) {
+        tap_code(KC_QUOT);
+      } else {
+        SEND_STRING("\"\"" SS_TAP(X_LEFT));
+      }
+    }
+    return false;
+  }
+
+  switch (keycode) {
+  #ifndef NO_ACTION_TAPPING
+    case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+      if (record->tap.count == 0) { return true; }
+      keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+      break;
+#ifndef NO_ACTION_LAYER
+    case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+      if (record->tap.count == 0) { return true; }
+      keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+      break;
+#endif  // NO_ACTION_LAYER
+#endif  // NO_ACTION_TAPPING
+  }
+
+  // Determine whether the key is a letter.
+  switch (keycode) {
+    case KC_A ... KC_Z:
+      within_word = true;
+      break;
+
+    default:
+      within_word = false;
+  }
+
+  return true;  
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (!process_quopostrokey(keycode, record)) { return false; }
+
   const uint8_t mods = get_mods();
   const uint8_t oneshot_mods = get_oneshot_mods();
   switch (keycode) {
@@ -913,22 +958,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         register_mods(mods);  // Restore mods.
       }
       return false;
-# if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
-    case SH_OS:
-      if (record->event.pressed) {
-        if (record->tap.count == ONESHOT_TAP_TOGGLE) {
-            swap_hands_on();
-            is_swap_hands_tap_toggle_on = true;
-            return false;
-          }
-      } else {
-          if (record->tap.count == 1 && is_swap_hands_tap_toggle_on) {
-            swap_hands_off();
-            is_swap_hands_tap_toggle_on = false;
-            return false;
-          }
-      }
-# endif
   }
   return true;
 }

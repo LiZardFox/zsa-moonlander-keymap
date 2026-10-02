@@ -1,12 +1,13 @@
 // default for leader when nothing else is pressed
 SEQ_KEY(leader_default, (), KC_COMMA)
 
-// braces
+// pairs
 SEQ_STR(tag,  (KC_A), "<>" SS_TAP(X_LEFT))
 SEQ_STR(prnt, (KC_P), "()" SS_TAP(X_LEFT))
 SEQ_STR(brck, (KC_S), "[]" SS_TAP(X_LEFT))
 SEQ_STR(cbrk, (KC_C), "{}" SS_TAP(X_LEFT))
-SEQ_STR(dqot, (KC_D), SS_TAP(X_DQUO) SS_TAP(X_DQUO) SS_TAP(X_LEFT))
+SEQ_STR(quot, (KC_Q), "''" SS_TAP(X_LEFT))
+SEQ_STR(dqot, (KC_D), "\"\"" SS_TAP(X_LEFT))
 
 // git
 SEQ_STR(gits, (KC_G, KC_S), "git status" SS_TAP(X_ENTER))

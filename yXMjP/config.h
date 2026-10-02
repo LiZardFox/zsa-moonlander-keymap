@@ -205,7 +205,6 @@
 #    endif
 #endif
 
-#define ONESHOT_TAP_TOGGLE 3
 #define ONESHOT_TIMEOUT 5000
 
 // getreuer cyclotab
