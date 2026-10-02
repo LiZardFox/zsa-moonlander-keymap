@@ -166,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 socd_cleaner_t socd_opposing_pairs[] = {
   {{KC_W, KC_S}, SOCD_CLEANER_LAST},
   {{KC_A, KC_D}, SOCD_CLEANER_LAST}
-}
+};
 
 
 const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
@@ -600,6 +600,11 @@ tap_dance_action_t tap_dance_actions[] = {
 };
 
 
+inline uint8_t get_tap_kc(uint16_t dual_role_key) {
+    // Used to extract the basic tapping keycode from a dual-role key.
+    // Example: get_tap_kc(MT(MOD_RSFT, KC_E)) == KC_E
+    return dual_role_key & 0xFF;
+}
 
 static void tap_kp_code(char code[5]){
   int i;
@@ -748,7 +753,7 @@ static bool process_quopostrokey(uint16_t keycode, keyrecord_t *record) {
   return true;  
 }
 
-bool void process_dead_key(uint16_t keycode, keyrecord_t *record) {
+static bool process_dead_key(uint16_t keycode, keyrecord_t *record) {
   const uint8_t mods = get_mods();
   const uint8_t oneshot_mods = get_oneshot_mods();
 
@@ -781,7 +786,7 @@ bool void process_dead_key(uint16_t keycode, keyrecord_t *record) {
     del_oneshot_mods(MOD_MASK_SHIFT);
 
     tap_code16(keycode);
-    if (!(mods | oneshot_mods) & MOD_BIT(KC_ALGR)){ // if AltGr is not pressed, send a space to complete the dead key sequence
+    if (!((mods | oneshot_mods) & MOD_BIT(KC_ALGR))){ // if AltGr is not pressed, send a space to complete the dead key sequence
       tap_code(KC_SPACE);
     }
 
