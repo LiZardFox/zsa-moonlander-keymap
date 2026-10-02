@@ -728,7 +728,51 @@ static bool process_quopostrokey(uint16_t keycode, keyrecord_t *record) {
   return true;  
 }
 
+bool void process_dead_key(uint16_t keycode, keyrecord_t *record) {
+  const uint8_t mods = get_mods();
+  const uint8_t oneshot_mods = get_oneshot_mods();
+
+  switch (keycode) {
+    case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+    case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+    case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
+        // Earlier return if this has not been considered tapped yet
+        if (record->tap.count == 0) { return true; }
+        // Get the base tapping keycode of a mod- or layer-tap key
+        keycode = get_tap_kc(keycode);
+        break;
+    default:
+        break;
+  }
+
+  switch (keycode) {
+    case KC_QUOTE:
+    case KC_DOUBLE_QUOTE:
+    case KC_TILDE:
+    case KC_GRAVE:
+    case KC_CIRCUMFLEX:
+      break;
+    default:  // ignore all non dead keys
+      return true;
+  }
+
+  if (record->event.pressed) {
+    del_mods(MOD_MASK_SHIFT);
+    del_oneshot_mods(MOD_MASK_SHIFT);
+
+    tap_code16(keycode);
+    if (!(mods | oneshot_mods) & MOD_BIT(KC_ALGR)){ // if AltGr is not pressed, send a space to complete the dead key sequence
+      tap_code(KC_SPACE);
+    }
+
+    set_mods(mods);
+    set_oneshot_mods(oneshot_mods);
+  }  
+  return false; // Skip all further processing of this key
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (!process_dead_key(keycode, record)) { return false; }
   if (!process_quopostrokey(keycode, record)) { return false; }
 
   const uint8_t mods = get_mods();
@@ -750,8 +794,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
     }
     break;
-
-
 
     case DUAL_FUNC_0:
       if (record->tap.count > 0) {
@@ -962,18 +1004,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-
+#ifdef AUTO_CORRECT_ENABLE
 bool apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *correct) {
   if (get_highest_layer(layer_state) != 0)
   {
     return false;
   }
+
   
 #ifdef AUDIO_ENABLE
   PLAY_SONG(autocorrect_song);
 #endif
     return true;
 }
+#endif // AUTO_CORRECT_ENABLE
 
 bool led_update_user(led_t led_state) {
     #ifdef AUDIO_ENABLE
