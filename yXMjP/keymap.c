@@ -145,7 +145,7 @@ const uint16_t PROGMEM combo15[] = { KC_CAPS, KC_LEFT_CTRL, KC_Z, KC_A, KC_S, KC
 const uint16_t PROGMEM combo16[] = { KC_Q, HOME_T, HOME_N, MEH_J, COMBO_END};
 const uint16_t PROGMEM combo17[] = { HOME_E, KC_V, HOME_O, MEH_W, COMBO_END};
 const uint16_t PROGMEM combo18[] = { HOME_T, MEH_W, COMBO_END};
-const uint16_t PROGMEM combo19[] = { KC_M, HOME_T COMBO_END};
+const uint16_t PROGMEM combo19[] = { KC_M, HOME_T, COMBO_END};
 const uint16_t PROGMEM combo20[] = { HOME_T, KC_V, COMBO_END};
 const uint16_t PROGMEM combo21[] = { HOME_N, KC_V, HOME_T, MEH_W, COMBO_END};
 const uint16_t PROGMEM combo22[] = { HOME_H, KC_M, KC_V, HOME_N, COMBO_END};
@@ -208,7 +208,7 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo33, WLEFT),
     COMBO(combo34, DOKUP),
     COMBO(combo35, DOKDN),
-    COMBO(combo36, WRGHT)
+    COMBO(combo36, WRGHT),
     COMBO(combo37, S_TAB),
     COMBO(combo38, KC_TAB),
     COMBO(combo39, CW_TOGG),

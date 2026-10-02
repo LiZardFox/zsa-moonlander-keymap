@@ -5,6 +5,7 @@
 
 #ifndef ZSA_SAFE_RANGE
 #define ZSA_SAFE_RANGE SAFE_RANGE
+#endif
 
 enum layer_names {
   BASE = 0,
