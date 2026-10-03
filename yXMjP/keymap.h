@@ -51,8 +51,8 @@ enum layer_names {
 // other mod keys
 #define BASE_J MEH_T(KC_J)
 #define BASE_W MEH_T(KC_W)
-#define BASE_K LCTL(KC_K)
-#define BASE_M RCTL(KC_M)
+#define BASE_K LCTL_T(KC_K)
+#define BASE_M RCTL_T(KC_M)
 
 
 // One Shot Modifiers
