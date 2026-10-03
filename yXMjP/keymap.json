@@ -1,8 +1,9 @@
 {
     "modules": [
         "zsa/oryx",
-        "zsa/mousejiggler",
         "zsa/defaults",
+        "getreuer/lumino",
+        "getreuer/palettefx",
         "getreuer/sentence_case",
         "getreuer/super_leader",
         "getreuer/select_word",

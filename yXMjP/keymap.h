@@ -10,7 +10,8 @@
 enum layer_names {
   BASE = 0,
   STEN,
-  NMSY,
+  NUMP,
+  SYMB,
   UTIL,
   NAVI,
   MOUS,
@@ -35,24 +36,24 @@ enum layer_names {
 #define GAMP_TT TT(GAMP) 
 #define KRIT_TT TT(KRIT) 
 
-// RGB
-#define TOGG_LC TOGGLE_LAYER_COLOR
-
 // Right hand home row
 #define HOME_A MT(MOD_LALT, KC_A)
 #define HOME_O LT(NMSY, KC_O)
 #define HOME_E MT(MOD_LSFT, KC_E)
-#define HOME_U MT(MOD_LCTL, KC_U)
+#define HOME_U LT(NAVI, KC_U)
 
 // Left hand home row
-#define HOME_H MT(MOD_RCTL, KC_H)
+#define HOME_H LT(NUMP, KC_H)
 #define HOME_T MT(MOD_RSFT, KC_T)
 #define HOME_N LT(NMSY, KC_N)
 #define HOME_S MT(MOD_RALT, KC_S)
 
-// Meh keys
-#define MEH_J MEH_T(KC_J)
-#define MEH_W MEH_T(KC_W)
+// other mod keys
+#define BASE_J MEH_T(KC_J)
+#define BASE_W MEH_T(KC_W)
+#define LCTL_K LCTL(KC_K)
+#define RCTL_M RCTL(KC_M)
+
 
 // One Shot Modifiers
 #define OS_LSFT OSM(MOD_LSFT)
@@ -105,8 +106,7 @@ enum layer_names {
 
 
 enum custom_keycodes {
-  RGB_SLD = ZSA_SAFE_RANGE,  
-  CR_EURO,
+  CR_EURO = ZSA_SAFE_RANGE,
   NOTE_PAD,
   VS_CODE,
   GER_AE,
@@ -118,7 +118,12 @@ enum custom_keycodes {
   SRCHSEL,
   BRACES,
   QUOP,
-  JIGGLE
+  JIGGLE,
+  RGBNEXT,
+  RGBHUP,
+  RGBHRND,
+  RGBDEF1,
+  RGBDEF2,
 };
 
 #ifdef TAP_DANCE_ENABLE
@@ -153,3 +158,29 @@ enum tap_dance_codes {
 
 #define HOM_SFT LT(1, KC_S)
 #define END_SFT LT(3, KC_F18)
+
+
+
+
+#ifdef KEYCODE_STRING_ENABLE
+KEYCODE_STRING_NAMES_USER(
+  KEYCODE_STRING_NAME(CR_EURO),
+  KEYCODE_STRING_NAME(NOTE_PAD),
+  KEYCODE_STRING_NAME(VS_CODE),
+  KEYCODE_STRING_NAME(GER_AE),
+  KEYCODE_STRING_NAME(GER_OE),
+  KEYCODE_STRING_NAME(GER_UE),
+  KEYCODE_STRING_NAME(GER_SZ),
+  KEYCODE_STRING_NAME(NEXTSEN),
+  KEYCODE_STRING_NAME(JOINLN),
+  KEYCODE_STRING_NAME(SRCHSEL),
+  KEYCODE_STRING_NAME(BRACES),
+  KEYCODE_STRING_NAME(QUOP),
+  KEYCODE_STRING_NAME(JIGGLE),
+  KEYCODE_STRING_NAME(RGBNEXT),
+  KEYCODE_STRING_NAME(RGBHUP),
+  KEYCODE_STRING_NAME(RGBHRND),
+  KEYCODE_STRING_NAME(RGBDEF1),
+  KEYCODE_STRING_NAME(RGBDEF2),
+);
+#endif  // KEYCODE_STRING_ENABLE

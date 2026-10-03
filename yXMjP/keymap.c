@@ -13,15 +13,6 @@ bool is_swap_hands_tap_toggle_on = false;
 static uint8_t numl_state = 0;
 bool numlock_changed = false;
 
-#ifdef AUDIO_ENABLE
-float caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
-float caps_off[][2] = SONG(CAPS_LOCK_OFF_SOUND);
-float numl_on[][2] = SONG(NUM_LOCK_ON_SOUND);
-float numl_off[][2] = SONG(NUM_LOCK_OFF_SOUND);
-float caps_word_on_song[][2] = SONG(ZELDA_PUZZLE);
-float caps_word_off_song[][2] = SONG(ZELDA_TREASURE);
-#endif
-
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -39,11 +30,10 @@ LAYOUT_moonlander(
     TD_STGA,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,            KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   TD_STGA,
     KC_BSLS,  QUOP,     LEADER,   KC_DOT,   KC_P,     KC_Y,     _______,          TD_LOCK,  KC_F,     KC_G,     KC_C,     KC_R,     KC_L,     KC_SLSH,
     NAV_EQL,  HOME_A,   HOME_O,   HOME_E,   HOME_U,   KC_I,     _______,          _______,  KC_D,     HOME_H,   HOME_T,   HOME_N,   HOME_S,   UTL_MNS,
-    SH_OS,    KC_SCLN,  KC_Q,     MEH_J,    KC_K,     KC_X,                                 KC_B,     KC_M,     MEH_W,    KC_V,     KC_Z,     SH_OS,  
+    SH_OS,    KC_SCLN,  KC_Q,     BASE_J,   BASE_K,   KC_X,                                 KC_B,     BASE_M,   BASE_W,   KC_V,     KC_Z,     SH_OS,  
     NMSY_TT,  NAVI_TT,  MOUS_TT,  DM_REC1,  QK_AREP,            DM_PLY1,          DM_PLY2,            QK_REP,   DM_REC2,  MOUS_TT,  NAVI_TT,  NMSY_TT,  
                                             MOU_BSP,  OS_LSFT,  LGUI_ESC,         KC_RGUI,  NAV_ENT,  KC_SPC
 ),
-
 [STEN] = LAYOUT_moonlander(
     TD_BAGA,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,          XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  TD_BAGA,
     XXXXXXX,  STN_N1,   STN_N2,   STN_N3,   STN_N4,   STN_N5,   XXXXXXX,          XXXXXXX,  STN_N6,   STN_N7,   STN_N8,   STN_N9,   STN_NA,   STN_NB,
@@ -52,12 +42,20 @@ LAYOUT_moonlander(
     SA_TAB,   A_TAB,    XXXXXXX,  XXXXXXX,  KC_LCTL,            _______,          _______,            XXXXXXX,  XXXXXXX,  XXXXXXX,  SA_TAB,   A_TAB,   
                                             STN_A,    STN_O,    STN_NC,           STN_NC,  STN_E,   STN_U
 ),
-[NMSY] = LAYOUT_moonlander(
+[NUMP] = LAYOUT_moonlander(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
-    KC_NUM,   KC_PSLS,  KC_KP_7,  KC_KP_8,  KC_KP_9,  KC_KP_0,  KC_CALC,          KC_TILD,  KC_GRV,   KC_LCBR,  KC_RCBR,  KC_EXLM,  KC_AT,    _______,
-    KC_PMNS,  KC_PAST,  KC_KP_4,  KC_KP_5,  KC_KP_6,  KC_PDOT,  CR_EURO,          _______,  KC_AMPR,  KC_LPRN,  KC_RPRN,  KC_HASH,  KC_DLR,   _______,
-    KC_PENT,  KC_PPLS,  KC_KP_1,  KC_KP_2,  KC_KP_3,  KC_COMM,                              KC_ASTR,  KC_LBRC,  KC_RBRC,  KC_PERC,  KC_CIRC,  KC_PIPE,  
-    _______,  _______,  KC_KP_0,  KC_KP_0,  KC_PDOT,            _______,          _______,            _______,  _______,  _______,  _______,  _______,  
+    KC_NUM,   KC_PSLS,  KC_KP_7,  KC_KP_8,  KC_KP_9,  KC_KP_0,  KC_CALC,          KC_CALC,  KC_NUM,   KC_KP_7,  KC_KP_8,  KC_KP_9,  KC_KP_0,  KC_PSLS,
+    KC_PMNS,  KC_PAST,  KC_KP_4,  KC_KP_5,  KC_KP_6,  KC_PDOT,  CR_EURO,          CR_EURO,  KC_PDOT,  KC_KP_4,  KC_KP_5,  KC_KP_6,  KC_PAST,  KC_PMNS,
+    KC_PENT,  KC_PPLS,  KC_KP_1,  KC_KP_2,  KC_KP_3,  KC_COMM,                              KC_COMM,  KC_KP_1,  KC_KP_2,  KC_KP_3,  KC_PPLS,  KC_PENT,  
+    _______,  _______,  KC_KP_0,  KC_KP_0,  KC_PDOT,            _______,          _______,            KC_KP_0,  KC_KP_0,  KC_PDOT,  _______,  _______,  
+                                            _______,  _______,  _______,          _______,  _______,  _______
+),
+[SYMB] = LAYOUT_moonlander(
+    _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
+    _______,  KC_GRV,   KC_LT,    KC_GT,    KC_MINS,  KC_PIPE,  _______,          _______,  KC_CIRC,  KC_LCBR,  KC_RCBR,  KC_EXLM,  KC_DLR,   _______,
+    _______,  KC_EXLM,  KC_ASTR,  KC_EQL,   KC_AMPR,  KC_PDOT,  _______,          _______,  KC_HASH,  KC_LPRN,  KC_RPRN,  KC_SCLN,  KC_DQUO,  _______,
+    _______,  KC_TILD,  KC_PLUS,  KC_LBRC,  KC_RBRC,  KC_PERC,                              KC_AT,    KC_COLN,  KC_COMM,  KC_DOT,   KC_QUOT,  _______,  
+    _______,  _______,  _______,  _______,  _______,            _______,          _______,            _______,  _______,  _______,  _______,  _______,  
                                             _______,  _______,  _______,          _______,  _______,  _______
 ),
 [UTIL] = LAYOUT_moonlander(
@@ -65,8 +63,8 @@ LAYOUT_moonlander(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          NOTE_PAD, DT_UP,    _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          VS_CODE,  DT_PRNT,  _______,  _______,  _______,  _______,  _______,
     AU_TOGG,  _______,  _______,  _______,  _______,  _______,                              DT_DOWN,  _______,  _______,  _______,  _______,  _______,  
-    _______,  _______,  _______,  _______,  _______,            _______,          _______,            _______,  _______,  _______,  _______,  _______,  
-                                            RGB_VAD,  RGB_VAI,  TOGG_LC,          RGB_SLD,  RGB_HUD,  RGB_HUI
+    _______,  _______,  _______,  _______,  _______,            RGB_NEXT,         LUMINO,             _______,  _______,  _______,  _______,  _______,  
+                                            RGB_DEF1, RGB_DEF2, RM_SPDD,          RM_SPDU,  RGB_HRND,  RGBHUP
 ),
 [NAVI] = LAYOUT_moonlander(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
@@ -126,11 +124,11 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
                  '*', '*', '*', '*', '*', '*'
 );
 
-const uint16_t PROGMEM combo0[] = { KC_Q, HOME_E, HOME_O, MEH_J, COMBO_END};
+const uint16_t PROGMEM combo0[] = { KC_Q, HOME_E, HOME_O, BASE_J, COMBO_END};
 const uint16_t PROGMEM combo1[] = { KC_D, KC_C, KC_X, KC_S, COMBO_END};
 const uint16_t PROGMEM combo2[] = { KC_SCLN, HOME_A, COMBO_END};
 const uint16_t PROGMEM combo3[] = { KC_Q, HOME_O, COMBO_END};
-const uint16_t PROGMEM combo4[] = { HOME_U, KC_K, COMBO_END};
+const uint16_t PROGMEM combo4[] = { HOME_U, BASE_J, COMBO_END};
 const uint16_t PROGMEM combo5[] = { KC_Z, HOME_S, COMBO_END};
 const uint16_t PROGMEM combo6[] = { KC_A, KC_Z, KC_X, KC_S, COMBO_END};
 const uint16_t PROGMEM combo7[] = { KC_1, KC_2, COMBO_END};
@@ -140,32 +138,32 @@ const uint16_t PROGMEM combo10[] = { KC_O, KC_I, COMBO_END};
 const uint16_t PROGMEM combo11[] = { KC_I, KC_U, COMBO_END};
 const uint16_t PROGMEM combo12[] = { KC_O, KC_I, KC_U, COMBO_END};
 const uint16_t PROGMEM combo13[] = { KC_1, KC_3, COMBO_END};
-const uint16_t PROGMEM combo14[] = { KC_SCLN, HOME_E, HOME_O, HOME_A, KC_Q, MEH_J, COMBO_END};
+const uint16_t PROGMEM combo14[] = { KC_SCLN, HOME_E, HOME_O, HOME_A, KC_Q, BASE_J, COMBO_END};
 const uint16_t PROGMEM combo15[] = { KC_CAPS, KC_LEFT_CTRL, KC_Z, KC_A, KC_S, KC_X, COMBO_END};
-const uint16_t PROGMEM combo16[] = { KC_Q, HOME_T, HOME_N, MEH_J, COMBO_END};
-const uint16_t PROGMEM combo17[] = { HOME_E, KC_V, HOME_O, MEH_W, COMBO_END};
-const uint16_t PROGMEM combo18[] = { HOME_T, MEH_W, COMBO_END};
-const uint16_t PROGMEM combo19[] = { KC_M, HOME_T, COMBO_END};
+const uint16_t PROGMEM combo16[] = { KC_Q, HOME_T, HOME_N, BASE_J, COMBO_END};
+const uint16_t PROGMEM combo17[] = { HOME_E, KC_V, HOME_O, BASE_W, COMBO_END};
+const uint16_t PROGMEM combo18[] = { HOME_T, BASE_W, COMBO_END};
+const uint16_t PROGMEM combo19[] = { BASE_J, HOME_T, COMBO_END};
 const uint16_t PROGMEM combo20[] = { HOME_T, KC_V, COMBO_END};
-const uint16_t PROGMEM combo21[] = { HOME_N, KC_V, HOME_T, MEH_W, COMBO_END};
-const uint16_t PROGMEM combo22[] = { HOME_H, KC_M, KC_V, HOME_N, COMBO_END};
-const uint16_t PROGMEM combo23[] = { HOME_H, KC_M, MEH_W, HOME_T, COMBO_END};
-const uint16_t PROGMEM combo24[] = { HOME_H, MEH_W, KC_V, COMBO_END};
+const uint16_t PROGMEM combo21[] = { HOME_N, KC_V, HOME_T, BASE_W, COMBO_END};
+const uint16_t PROGMEM combo22[] = { HOME_H, BASE_J, KC_V, HOME_N, COMBO_END};
+const uint16_t PROGMEM combo23[] = { HOME_H, BASE_J, BASE_W, HOME_T, COMBO_END};
+const uint16_t PROGMEM combo24[] = { HOME_H, BASE_W, KC_V, COMBO_END};
 const uint16_t PROGMEM combo25[] = { HOME_N, KC_V, COMBO_END};
-const uint16_t PROGMEM combo26[] = { KC_M, HOME_H, HOME_T, HOME_N, KC_V, MEH_W, COMBO_END};
-const uint16_t PROGMEM combo27[] = { KC_M, HOME_T, KC_V, COMBO_END};
-const uint16_t PROGMEM combo28[] = { HOME_H, HOME_T, MEH_W, KC_V, COMBO_END};
-const uint16_t PROGMEM combo29[] = { KC_V, MEH_W, COMBO_END};
-const uint16_t PROGMEM combo30[] = { KC_M, MEH_W, COMBO_END};
+const uint16_t PROGMEM combo26[] = { BASE_J, HOME_H, HOME_T, HOME_N, KC_V, BASE_W, COMBO_END};
+const uint16_t PROGMEM combo27[] = { BASE_J, HOME_T, KC_V, COMBO_END};
+const uint16_t PROGMEM combo28[] = { HOME_H, HOME_T, BASE_W, KC_V, COMBO_END};
+const uint16_t PROGMEM combo29[] = { KC_V, BASE_W, COMBO_END};
+const uint16_t PROGMEM combo30[] = { BASE_J, BASE_W, COMBO_END};
 const uint16_t PROGMEM combo31[] = { HOME_H, HOME_T, HOME_N, COMBO_END};
-const uint16_t PROGMEM combo32[] = { KC_M, MEH_W, KC_V, COMBO_END};
+const uint16_t PROGMEM combo32[] = { BASE_J, BASE_W, KC_V, COMBO_END};
 const uint16_t PROGMEM combo33[] = { KC_DOWN, KC_LEFT, COMBO_END};
 const uint16_t PROGMEM combo34[] = { HOM_SFT, KC_UP, END_SFT, COMBO_END};
 const uint16_t PROGMEM combo35[] = { KC_DOWN, KC_LEFT, KC_RIGHT, COMBO_END};
 const uint16_t PROGMEM combo36[] = { KC_DOWN, KC_RIGHT, COMBO_END};
 const uint16_t PROGMEM combo37[] = { KC_DOT, KC_P, COMBO_END};
 const uint16_t PROGMEM combo38[] = { KC_G, KC_C, COMBO_END};
-const uint16_t PROGMEM combo39[] = { MEH_W, KC_M, KC_K, MEH_J, COMBO_END};
+const uint16_t PROGMEM combo39[] = { BASE_W, BASE_J, BASE_J, BASE_J, COMBO_END};
 const uint16_t PROGMEM combo40[] = { KC_RIGHT_GUI, LT(4, KC_ENTER), COMBO_END};
 const uint16_t PROGMEM combo41[] = { KC_SPACE, LT(4, KC_ENTER), COMBO_END};
 const uint16_t PROGMEM combo42[] = { HOME_H, MT(MOD_LCTL, KC_U), HOME_T, HOME_E, COMBO_END};
@@ -216,98 +214,97 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo41, CW_TOGG),
     COMBO(combo42, LEADER),
     COMBO(combo43, NEXTSEN),
-};
-
-extern rgb_config_t rgb_matrix_config;
-
-RGB hsv_to_rgb_with_value(HSV hsv) {
-  RGB rgb = hsv_to_rgb( hsv );
-  float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-  return (RGB){ f * rgb.r, f * rgb.g, f * rgb.b };
-}
-
-void keyboard_post_init_user(void) {
-  rgb_matrix_enable();
-}
-
-const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
-    [1] = { {21,237,224}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {175,172,207}, {175,172,207}, {175,172,207}, {0,0,0}, {0,0,0}, {175,172,207}, {175,172,207}, {175,172,207}, {0,0,0}, {0,0,0}, {175,172,207}, {175,172,207}, {175,172,207}, {0,0,0}, {0,0,0}, {175,172,207}, {175,172,207}, {175,172,207}, {0,0,0}, {0,0,0}, {175,172,207}, {175,172,207}, {175,172,207}, {73,158,185}, {0,0,0}, {0,0,0}, {175,172,207}, {175,172,207}, {175,172,207}, {175,172,207}, {21,237,224}, {175,172,207}, {175,172,207}, {175,172,207}, {0,0,0}, {0,0,0}, {175,172,207}, {175,172,207}, {175,172,207}, {0,0,0}, {0,0,0}, {175,172,207}, {175,172,207}, {175,172,207}, {0,0,0}, {0,0,0}, {175,172,207}, {175,172,207}, {175,172,207}, {0,0,0}, {0,0,0}, {175,172,207}, {175,172,207}, {175,172,207}, {0,0,0}, {0,0,0}, {175,172,207}, {175,172,207}, {175,172,207}, {73,158,185}, {0,0,0}, {0,0,0}, {175,172,207}, {175,172,207}, {175,172,207}, {175,172,207} },
-
-    [2] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,245,245}, {0,245,245}, {0,245,245}, {0,0,0}, {0,0,0}, {0,245,245}, {0,245,245}, {0,245,245}, {0,0,0}, {0,0,0}, {0,245,245}, {0,245,245}, {0,245,245}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-
-    [3] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {40,240,174}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {190,238,63}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,54,140}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {221,236,121}, {176,241,174}, {21,237,224}, {0,0,0}, {0,0,0}, {176,241,174}, {144,199,242}, {176,241,174}, {0,0,0}, {0,0,0}, {221,236,121}, {176,241,174}, {21,237,224}, {0,0,0}, {20,230,227}, {74,255,255}, {74,255,255}, {74,255,255}, {0,218,204}, {131,219,203}, {148,219,203}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-
-    [4] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {172,255,255}, {172,255,255}, {69,201,230}, {0,0,0}, {0,0,0}, {123,232,160}, {20,250,216}, {69,201,230}, {0,0,0}, {0,0,0}, {20,250,216}, {20,250,216}, {199,255,176}, {0,0,0}, {0,0,0}, {123,232,160}, {20,250,216}, {199,255,176}, {0,0,0}, {0,0,0}, {0,207,168}, {0,207,168}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-
-    [5] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {139,250,106}, {0,0,0}, {0,0,0}, {0,0,0}, {74,255,255}, {139,250,106}, {0,0,0}, {0,0,0}, {0,0,0}, {74,255,255}, {139,250,106}, {0,0,0}, {0,0,0}, {0,0,0}, {74,255,255}, {139,250,106}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {41,255,255}, {188,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {172,255,255}, {172,255,255}, {0,255,112}, {0,0,0}, {0,0,0}, {180,227,168}, {20,250,216}, {172,255,255}, {0,0,0}, {0,0,0}, {20,250,216}, {20,250,216}, {180,227,168}, {123,255,255}, {0,0,0}, {180,227,168}, {20,250,216}, {172,255,255}, {123,255,255}, {0,0,0}, {219,255,255}, {219,255,255}, {219,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {180,227,168}, {0,0,0}, {0,0,0}, {0,0,0} },
-
-    [6] = { {32,226,188}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {188,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {188,255,255}, {188,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {188,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,255,104}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-
-    [7] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {186,255,112}, {0,0,0}, {0,0,0}, {0,224,133}, {0,218,204}, {198,255,112}, {0,0,0}, {0,0,0}, {104,179,197}, {19,218,204}, {216,255,112}, {0,0,0}, {0,0,0}, {192,224,133}, {40,218,204}, {20,255,65}, {0,0,0}, {0,0,0}, {28,174,241}, {0,255,112}, {238,218,204}, {0,0,0}, {247,218,204}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-
-    [8] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {32,226,188}, {0,0,0}, {197,243,86}, {0,0,0}, {0,0,0}, {197,243,86}, {197,243,86}, {197,243,86}, {0,0,0}, {0,0,0}, {197,243,86}, {197,243,86}, {197,243,86}, {0,0,0}, {0,0,0}, {197,243,86}, {197,243,86}, {197,243,86}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-
-};
-
-void set_layer_color(int layer) {
-  for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-    HSV hsv = {
-      .h = pgm_read_byte(&ledmap[layer][i][0]),
-      .s = pgm_read_byte(&ledmap[layer][i][1]),
-      .v = pgm_read_byte(&ledmap[layer][i][2]),
-    };
-    if (!hsv.h && !hsv.s && !hsv.v) {
-        rgb_matrix_set_color( i, 0, 0, 0 );
-    } else {
-        RGB rgb = hsv_to_rgb_with_value(hsv);
-        rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-    }
+  };
+  
+  
+  // A cheap pseudorandom generator.
+  static uint8_t myrand(void) {
+    static uint16_t state = 1;
+    #ifdef __CHIBIOS__  // Use high-res timer on ChibiOS.
+    state += (uint16_t)chVTGetSystemTimeX();
+    #else
+    state += timer_read();
+    #endif
+    state *= UINT16_C(36563);
+    return state >> 8;
   }
-}
-
-bool rgb_matrix_indicators_user(void) {
-  if (rawhid_state.rgb_control) {
-      return false;
+  
+  // Tap-hold configuration
+  uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+      switch (keycode) {
+          case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
+              return TAPPING_TERM + 20; // Increase
+          default:
+              return TAPPING_TERM;
+      }
   }
-  if (!keyboard_config.disable_layer_led) { 
-    switch (biton32(layer_state)) {
-      case 1:
-        set_layer_color(1);
-        break;
-      case 2:
-        set_layer_color(2);
-        break;
-      case 3:
-        set_layer_color(3);
-        break;
-      case 4:
-        set_layer_color(4);
-        break;
-      case 5:
-        set_layer_color(5);
-        break;
-      case 6:
-        set_layer_color(6);
-        break;
-      case 7:
-        set_layer_color(7);
-        break;
-      case 8:
-        set_layer_color(8);
-        break;
-     default:
-        if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
-          rgb_matrix_set_color_all(0, 0, 0);
+
+  uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t* record) {
+    // If you quickly hold a tap-hold key after tapping it, the tap action is
+    // repeated. Key repeating is useful e.g. for Vim navigation keys, but can
+    // lead to missed triggers in fast typing. Here, returning 0 means we
+    // instead want to "force hold" and disable key repeating.
+    switch (keycode) {
+      case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+      case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:  // For MT and LT tap-hold keys.
+        switch (keycode) {
+          case HRM_N:
+          case HRM_H:
+            return QUICK_TAP_TERM;  // Enable key repeating for these keys.
+          default:
+            return 0;  // Disable Quick Tap for other MT and LT keys.
         }
-    }
-  } else {
-    if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
-      rgb_matrix_set_color_all(0, 0, 0);
+      default:
+        // Enable for tap-hold keys besides MT and LT. Particularly, TT keys need
+        // Quick Tap enabled to use their toggling function.
+        return QUICK_TAP_TERM;
     }
   }
+  
+  
+  uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record, 
+                             uint16_t prev_keycode) {
+      if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+          switch (keycode) {
+          case LSFT_T(KC_E):
+          case RSFT_T(KC_T):
+              return FLOW_TAP_TERM - 70;
+          case LT(2, KC_O):
+          case LT(2, KC_N):
+              return FLOW_TAP_TERM - 40;
+          default:
+            return FLOW_TAP_TERM;
+          }
+      }
+      return 0;
+  }
+  
+  
+  #ifdef SPECULATIVE_HOLD
+  bool get_speculative_hold(uint16_t keycode, keyrecord_t* record) {
+    return true;  // Enable for all mods.
+  }
+  #endif  // SPECULATIVE_HOLD
+  
+  extern rgb_config_t rgb_matrix_config;
+  
 
-  return true;
+#ifdef COMMUNITY_MODULE_PALETTEFX_ENABLE
+static void lighting_set_palette(uint8_t palette) {
+  if (lumino_get_value() == 0) {
+    lumino_cycle_3_state();
+  }
+  rgb_matrix_enable_noeeprom();
+  rgb_matrix_sethsv_noeeprom(
+      RGB_MATRIX_HUE_STEP * palette, 255, rgb_matrix_get_val());
 }
+
+static void lighting_preset(uint8_t effect, uint8_t palette) {
+  lighting_set_palette(palette);
+  rgb_matrix_mode_noeeprom(effect);
+  rgb_matrix_set_speed_noeeprom(60);
+}
+#endif // COMMUNITY_MODULE_PALETTEFX_ENABLE
 
 
 typedef struct {
@@ -939,6 +936,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     token = defer_exec(INIT_DELAY_MS, bspc_callback, NULL); 
   }
 } return false;  // Skip normal handling.
+
+#ifdef COMMUNITY_MODULE_PALETTEFX_ENABLE
+      case RGBNEXT:
+        if (shift_mods) {
+          rgb_matrix_step_reverse_noeeprom();
+        } else {
+          rgb_matrix_step_noeeprom();
+        }
+        break;
+
+      case RGBHUP:
+        if (shift_mods) {
+          rgb_matrix_decrease_hue_noeeprom();
+        } else {
+          rgb_matrix_increase_hue_noeeprom();
+        }
+        break;
+
+      case RGBHRND:
+        lighting_set_palette(myrand());
+        break;
+
+      case RGBDEF1:
+        lighting_preset(
+            RGB_MATRIX_COMMUNITY_MODULE_PALETTEFX_FLOW, PALETTEFX_POLARIZED);
+        break;
+
+      case RGBDEF2:
+        lighting_preset(
+            RGB_MATRIX_COMMUNITY_MODULE_PALETTEFX_REACTIVE, PALETTEFX_AFTERBURN);
+        break;
+#endif  // COMMUNITY_MODULE_PALETTEFX_ENABLE
   }
   return true;
 }
@@ -950,28 +979,7 @@ bool apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *co
     return false;
   }
 
-  
-#ifdef AUDIO_ENABLE
-  PLAY_SONG(autocorrect_song);
-#endif
-    return true;
-}
 #endif // AUTO_CORRECT_ENABLE
-
-bool led_update_user(led_t led_state) {
-    #ifdef AUDIO_ENABLE
-    static uint8_t caps_state = 0;
-    if (caps_state != led_state.caps_lock) {
-        led_state.caps_lock ? PLAY_SONG(caps_on) : PLAY_SONG(caps_off);
-        caps_state = led_state.caps_lock;
-    }
-    if(numl_state != led_state.num_lock){
-      led_state.num_lock ? PLAY_SONG(numl_on) : PLAY_SONG(numl_off);
-      numl_state = led_state.num_lock;
-    }
-    #endif
-    return true;
-}
 
 
 bool shutdown_user(bool jump_to_bootloader) {
@@ -1012,24 +1020,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     }
 
     return KC_TRNS;  // Defer to default definitions.
-}
-
-
-uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record, 
-                           uint16_t prev_keycode) {
-    if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
-        switch (keycode) {
-        case LSFT_T(KC_E):
-        case RSFT_T(KC_T):
-            return FLOW_TAP_TERM - 70;
-        case LT(2, KC_O):
-        case LT(2, KC_N):
-            return FLOW_TAP_TERM - 40;
-        default:
-          return FLOW_TAP_TERM;
-        }
-    }
-    return 0;
 }
 
 const key_override_t next_track_override = 
@@ -1110,14 +1100,6 @@ void caps_word_set_user(bool active) {
     #endif
 }
 
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
-            return TAPPING_TERM + 100; // Increase
-        default:
-            return TAPPING_TERM;
-    }
-}
 
 void super_leader_add_user(
   const uint16_t* seq, uint8_t num_seq, bool*partial
@@ -1135,33 +1117,43 @@ void super_leader_add_user(
   }
 
 
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    
-    if (is_swap_hands_on() && host_keyboard_led_state().caps_lock) {
-        for (uint8_t i = led_min; i < led_max; i++) {
-            if (g_led_config.flags[i] & LED_FLAG_KEYLIGHT) {
-                rgb_matrix_set_color(i, RGB_ORANGE);
-            }
-        }
-    }
-    else if (is_swap_hands_on()) {
-        for (uint8_t i = led_min; i < led_max; i++) {
-            if (g_led_config.flags[i] & LED_FLAG_KEYLIGHT) {
-                rgb_matrix_set_color(i, RGB_YELLOW);
-            }
-        }
-    }
-    else if (host_keyboard_led_state().caps_lock) {
-        for (uint8_t i = led_min; i < led_max; i++) {
-            if (g_led_config.flags[i] & LED_FLAG_KEYLIGHT) {
-                rgb_matrix_set_color(i, RGB_RED);
-            }
-        }
-    }
-    return false;
-}
-
 layer_state_t layer_state_set_user(layer_state_t state) {
   socd_cleaner_enabled = IS_LAYER_ON_STATE(state, GAME);
   return state;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Debug logging
+///////////////////////////////////////////////////////////////////////////////
+#ifndef NO_DEBUG
+#pragma message "dlog_record: enabled"
+
+
+static void dlog_record(uint16_t keycode, keyrecord_t* record) {
+  if (!debug_enable) { return; }
+  uint8_t layer = read_source_layers_cache(record->event.key);
+  bool is_tap_hold = IS_QK_MOD_TAP(keycode) || IS_QK_LAYER_TAP(keycode);
+  xprintf("L%-2u ", layer);  // Log the layer.
+  if (IS_COMBOEVENT(record->event)) {  // Combos don't have a position.
+    xprintf("combo   ");
+  } else {  // Log the "(row,col)" position.
+    xprintf("(%2u,%2u) ", record->event.key.row, record->event.key.col);
+  }
+  xprintf("%-4s %-7s %s\n",  // "(tap|hold) (press|release) <keycode>".
+      is_tap_hold ? (record->tap.count ? "tap" : "hold") : "",
+      record->event.pressed ? "press" : "release",
+      get_keycode_string(keycode));
+}
+#else
+#pragma message "dlog_record: disabled"
+#define dlog_record(keycode, record)
+#endif  // NO_DEBUG
+
+
+void keyboard_post_init_user(void) {
+#ifdef COMMUNITY_MODULE_PALETTEFX_ENABLE
+  lighting_preset(
+      RGB_MATRIX_COMMUNITY_MODULE_PALETTEFX_FLOW + (myrand() % 4), myrand());
+#endif // COMMUNITY_MODULE_PALETTEFX_ENABLE
 }
