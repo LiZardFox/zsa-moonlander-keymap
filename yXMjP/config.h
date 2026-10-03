@@ -36,7 +36,10 @@
 #define SUPER_LEADER_TIMEOUT  1000
 
 // mouse
-#define ORBITAL_MOUSE_SPEED_CURVE {20, 21, 26, 33, 43, 57, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70}
+#define ORBITAL_MOUSE_SPEED_CURVE \
+      {20, 23, 33, 50, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70}
+//     |               |               |               |           |
+// t = 0.000           1.024           2.048           3.072       3.840 s
 
 #define LUMINO_TRANSITION 850
 #define LUMINO_BOOT_COLOR RGB_WHITE
