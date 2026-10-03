@@ -10,9 +10,6 @@
 
 bool is_swap_hands_tap_toggle_on = false;
 
-static uint8_t numl_state = 0;
-bool numlock_changed = false;
-
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -31,7 +28,7 @@ LAYOUT_moonlander(
     KC_BSLS,  QUOP,     LEADER,   KC_DOT,   KC_P,     KC_Y,     _______,          TD_LOCK,  KC_F,     KC_G,     KC_C,     KC_R,     KC_L,     KC_SLSH,
     NAV_EQL,  HOME_A,   HOME_O,   HOME_E,   HOME_U,   KC_I,     _______,          _______,  KC_D,     HOME_H,   HOME_T,   HOME_N,   HOME_S,   UTL_MNS,
     SH_OS,    KC_SCLN,  KC_Q,     BASE_J,   BASE_K,   KC_X,                                 KC_B,     BASE_M,   BASE_W,   KC_V,     KC_Z,     SH_OS,  
-    NMSY_TT,  NAVI_TT,  MOUS_TT,  DM_REC1,  QK_AREP,            DM_PLY1,          DM_PLY2,            QK_REP,   DM_REC2,  MOUS_TT,  NAVI_TT,  NMSY_TT,  
+    NUMP_TT,  NAVI_TT,  MOUS_TT,  DM_REC1,  QK_AREP,            DM_PLY1,          DM_PLY2,            QK_REP,   DM_REC2,  MOUS_TT,  NAVI_TT,  NUMP_TT,  
                                             MOU_BSP,  OS_LSFT,  LGUI_ESC,         KC_RGUI,  NAV_ENT,  KC_SPC
 ),
 [STEN] = LAYOUT_moonlander(
@@ -63,8 +60,8 @@ LAYOUT_moonlander(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          NOTE_PAD, DT_UP,    _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          VS_CODE,  DT_PRNT,  _______,  _______,  _______,  _______,  _______,
     AU_TOGG,  _______,  _______,  _______,  _______,  _______,                              DT_DOWN,  _______,  _______,  _______,  _______,  _______,  
-    _______,  _______,  _______,  _______,  _______,            RGB_NEXT,         LUMINO,             _______,  _______,  _______,  _______,  _______,  
-                                            RGB_DEF1, RGB_DEF2, RM_SPDD,          RM_SPDU,  RGB_HRND,  RGBHUP
+    _______,  _______,  _______,  _______,  _______,            RGBNEXT,          LUMINO,             _______,  _______,  _______,  _______,  _______,  
+                                            RGBDEF1,  RGBDEF2,  RM_SPDD,          RM_SPDU,  RGBHRND,  RGBHUP
 ),
 [NAVI] = LAYOUT_moonlander(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
@@ -237,28 +234,6 @@ combo_t key_combos[COMBO_COUNT] = {
           default:
               return TAPPING_TERM;
       }
-  }
-
-  uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t* record) {
-    // If you quickly hold a tap-hold key after tapping it, the tap action is
-    // repeated. Key repeating is useful e.g. for Vim navigation keys, but can
-    // lead to missed triggers in fast typing. Here, returning 0 means we
-    // instead want to "force hold" and disable key repeating.
-    switch (keycode) {
-      case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-      case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:  // For MT and LT tap-hold keys.
-        switch (keycode) {
-          case HRM_N:
-          case HRM_H:
-            return QUICK_TAP_TERM;  // Enable key repeating for these keys.
-          default:
-            return 0;  // Disable Quick Tap for other MT and LT keys.
-        }
-      default:
-        // Enable for tap-hold keys besides MT and LT. Particularly, TT keys need
-        // Quick Tap enabled to use their toggling function.
-        return QUICK_TAP_TERM;
-    }
   }
   
   
@@ -713,7 +688,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   const uint8_t mods = get_mods();
-  const uint8_t oneshot_mods = get_oneshot_mods();
+  const uint8_t all_mods = (mods | get_weak_mods()
+#ifndef NO_ACTION_ONESHOT
+                        | get_oneshot_mods()
+#endif  // NO_ACTION_ONESHOT
+  );
+  const uint8_t shift_mods = all_mods & MOD_MASK_SHIFT;
+  const bool alt = all_mods & MOD_BIT_LALT;
+  const uint8_t layer = read_source_layers_cache(record->event.key);
   switch (keycode) {
   case QK_MODS ... QK_MODS_MAX:
     // Mouse and consumer keys (volume, media) with modifiers work inconsistently across operating systems,
@@ -762,16 +744,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }  
       }  
       return false;
-    case RGB_SLD:
-        if (rawhid_state.rgb_control) {
-            return false;
-        }
-        if (record->event.pressed) {
-            rgblight_mode(1);
-        }
-        return false;
-
-
         case CR_EURO:
         if (record->event.pressed) {
           process_alt_num_key("00128");
@@ -897,9 +869,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         clear_oneshot_mods();  // Temporarily disable mods.
         unregister_mods(MOD_MASK_CSAG);
-        if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
+        if (shift_mods) {
           SEND_STRING("{}");
-        } else if ((mods | oneshot_mods) & MOD_MASK_CTRL) {
+        } else if (all_mods & MOD_MASK_CTRL) {
           SEND_STRING("<>");
         } else {
           SEND_STRING("[]");
@@ -1088,16 +1060,6 @@ bool caps_word_press_user(uint16_t keycode) {
         default:
             return false;  // Deactivate Caps Word.
     }
-}
-
-void caps_word_set_user(bool active) {
-  #ifdef AUDIO_ENABLE
-    if (active) {
-      PLAY_SONG(caps_word_on_song);
-    } else {
-      PLAY_SONG(caps_word_off_song);
-    }
-    #endif
 }
 
 

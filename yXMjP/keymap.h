@@ -28,7 +28,7 @@ enum layer_names {
 #define NAV_ENT  LT(NAVI, KC_ENTER)
 
 #define STEN_TT TT(STEN) 
-#define NMSY_TT TT(NMSY) 
+#define NUMP_TT TT(NUMP) 
 #define UTIL_TT TT(UTIL) 
 #define NAVI_TT TT(NAVI) 
 #define MOUS_TT TT(MOUS) 
@@ -38,21 +38,21 @@ enum layer_names {
 
 // Right hand home row
 #define HOME_A MT(MOD_LALT, KC_A)
-#define HOME_O LT(NMSY, KC_O)
+#define HOME_O LT(NUMP, KC_O)
 #define HOME_E MT(MOD_LSFT, KC_E)
 #define HOME_U LT(NAVI, KC_U)
 
 // Left hand home row
 #define HOME_H LT(NUMP, KC_H)
 #define HOME_T MT(MOD_RSFT, KC_T)
-#define HOME_N LT(NMSY, KC_N)
+#define HOME_N LT(NUMP, KC_N)
 #define HOME_S MT(MOD_RALT, KC_S)
 
 // other mod keys
 #define BASE_J MEH_T(KC_J)
 #define BASE_W MEH_T(KC_W)
-#define LCTL_K LCTL(KC_K)
-#define RCTL_M RCTL(KC_M)
+#define BASE_K LCTL(KC_K)
+#define BASE_M RCTL(KC_M)
 
 
 // One Shot Modifiers
