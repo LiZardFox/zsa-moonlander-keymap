@@ -694,8 +694,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif  // NO_ACTION_ONESHOT
   );
   const uint8_t shift_mods = all_mods & MOD_MASK_SHIFT;
-  const bool alt = all_mods & MOD_BIT_LALT;
-  const uint8_t layer = read_source_layers_cache(record->event.key);
   switch (keycode) {
   case QK_MODS ... QK_MODS_MAX:
     // Mouse and consumer keys (volume, media) with modifiers work inconsistently across operating systems,
