@@ -163,7 +163,7 @@ const uint16_t PROGMEM combo38[] = { KC_G, KC_C, COMBO_END};
 const uint16_t PROGMEM combo39[] = { BASE_W, BASE_M, BASE_K, BASE_J, COMBO_END};
 const uint16_t PROGMEM combo40[] = { KC_RGUI, NAV_ENT, COMBO_END};
 const uint16_t PROGMEM combo41[] = { KC_SPACE, NAV_ENT, COMBO_END};
-const uint16_t PROGMEM combo42[] = { HOME_H, MT(MOD_LCTL, KC_U), HOME_T, HOME_E, COMBO_END};
+const uint16_t PROGMEM combo42[] = { HOME_H, HOME_U, HOME_T, HOME_E, COMBO_END};
 const uint16_t PROGMEM combo43[] = { HOME_O, HOME_E, HOME_T, HOME_N, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
