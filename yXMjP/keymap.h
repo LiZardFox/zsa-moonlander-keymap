@@ -38,14 +38,14 @@ enum layer_names {
 
 // Right hand home row
 #define HOME_A MT(MOD_LALT, KC_A)
-#define HOME_O LT(NUMP, KC_O)
+#define HOME_O LT(SYMB, KC_O)
 #define HOME_E MT(MOD_LSFT, KC_E)
 #define HOME_U LT(NAVI, KC_U)
 
 // Left hand home row
 #define HOME_H LT(NUMP, KC_H)
 #define HOME_T MT(MOD_RSFT, KC_T)
-#define HOME_N LT(NUMP, KC_N)
+#define HOME_N LT(SYMB, KC_N)
 #define HOME_S MT(MOD_RALT, KC_S)
 
 // other mod keys

@@ -878,35 +878,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         register_mods(mods);  // Restore mods.
       }
       return false;
-    case KC_BSPC: {  // Backspace with exponential repeating.
-  // Initial delay before the first repeat.
-  static const uint8_t INIT_DELAY_MS = 250;
-  // This array customizes the rate at which the Backspace key
-  // repeats. The delay after the ith repeat is REP_DELAY_MS[i].
-  // Values must be between 1 and 255.
-  static const uint8_t REP_DELAY_MS[] PROGMEM = {
-      99, 79, 65, 57, 49, 43, 40, 35, 33, 30, 28, 26, 25, 23, 22, 20,
-      20, 19, 18, 17, 16, 15, 15, 14, 14, 13, 13, 12, 12, 11, 11, 10};
-  static deferred_token token = INVALID_DEFERRED_TOKEN;
-  static uint8_t rep_count = 0;
-    
-  if (!record->event.pressed) {  // Backspace released: stop repeating.
-    cancel_deferred_exec(token);
-    token = INVALID_DEFERRED_TOKEN;
-  } else if (!token) {  // Backspace pressed: start repeating.
-    tap_code(KC_BSPC);  // Initial tap of Backspace key.
-    rep_count = 0;
-
-    uint32_t bspc_callback(uint32_t trigger_time, void* cb_arg) {
-      tap_code(KC_BSPC);
-      if (rep_count < sizeof(REP_DELAY_MS)) { ++rep_count; }
-      return pgm_read_byte(REP_DELAY_MS - 1 + rep_count); 
-    }
-
-    token = defer_exec(INIT_DELAY_MS, bspc_callback, NULL); 
-  }
-} return false;  // Skip normal handling.
-
 #ifdef COMMUNITY_MODULE_PALETTEFX_ENABLE
       case RGBNEXT:
         if (shift_mods) {
@@ -1023,7 +994,7 @@ const key_override_t delete_key_override =
 
 // Also override for the layer tap backspace key
 const key_override_t delete_key_override_lt = 
-    ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, LT(5, KC_BSPC), KC_DEL, ~0, 0);
+    ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, MOU_BSP, KC_DEL, ~0, 0);
 
 // This globally defines all key overrides to be used
 const key_override_t *key_overrides[] = {
