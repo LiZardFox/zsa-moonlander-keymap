@@ -47,7 +47,7 @@ SEQ_STR(wuwa, (KC_W, KC_U, KC_W), "Wuthering Waves")
 SEQ_STR(zzz, (KC_Z, KC_Z, KC_Z), "Zenless Zone Zero")
 SEQ_STR(hsr, (KC_H, KC_S, KC_R), "Honkai Star Rail")
 // modded
-SEQ_STR(mwuwa, (KC_M, KC_W, KC_U, KC_W), "WWMI")
-SEQ_STR(mzzz, (KC_M, KC_Z, KC_Z, KC_Z), "ZZMI")
-SEQ_STR(mhsr, (KC_M, KC_H, KC_S, KC_R), "SRMI")
+SEQ_STR(wwmi, (KC_W, KC_M), "WWMI")
+SEQ_STR(zzmi, (KC_Z, KC_M), "ZZMI")
+SEQ_STR(srmi, (KC_S, KC_M), "SRMI")
 
