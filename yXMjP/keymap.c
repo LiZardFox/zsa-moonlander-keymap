@@ -469,48 +469,6 @@ inline uint8_t get_tap_kc(uint16_t dual_role_key) {
     return dual_role_key & 0xFF;
 }
 
-static void tap_kp_code(char code[5]){
-  int i;
-  for (i = 0; code[i] != 0; i++){
-    switch (code[i])
-    {
-    case '0':
-      tap_code(KC_KP_0);
-      break;
-    case '1':
-      tap_code(KC_KP_1);
-      break;
-    case '2':
-      tap_code(KC_KP_2);
-      break;
-    case '3':
-      tap_code(KC_KP_3);
-      break;
-    case '4':
-      tap_code(KC_KP_4);
-      break;
-    case '5':
-      tap_code(KC_KP_5);
-      break;
-    case '6':
-      tap_code(KC_KP_6);
-      break;
-    case '7':
-      tap_code(KC_KP_7);
-      break;
-    case '8':
-      tap_code(KC_KP_8);
-      break;
-    case '9':
-      tap_code(KC_KP_9);
-      break;
-    
-    default:
-      break;
-    }
-  }
-}
-
 static void process_num_lock_alteration(uint16_t keycode, uint16_t numl_keycode, keyrecord_t *record){
   if (!host_keyboard_led_state().num_lock) {
     if (record->event.pressed) {
