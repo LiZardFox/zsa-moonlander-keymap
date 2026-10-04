@@ -41,6 +41,8 @@
 //     |               |               |               |           |
 // t = 0.000           1.024           2.048           3.072       3.840 s
 
+#define POINTING_DEVICE_CS_PIN GP10
+
 #define LUMINO_TRANSITION 850
 #define LUMINO_BOOT_COLOR RGB_WHITE
 #define LUMINO_NO_EEPROM

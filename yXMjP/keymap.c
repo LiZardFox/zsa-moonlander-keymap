@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "version.h"
 #include "keymap_us_international.h"
 #include "sendstring_us_international.h"
 #include "keymap.h"
@@ -15,8 +14,8 @@ LAYOUT_moonlander(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
-    _______,  _______,  _______,  _______,  _______,  _______,                              _______,  _______,  _______,  _______,  _______,  _______,  
-    _______,  _______,  _______,  _______,  _______,            _______,          _______,            _______,  _______,  _______,  _______,  _______,  
+    _______,  _______,  _______,  _______,  _______,  _______,                              _______,  _______,  _______,  _______,  _______,  _______,
+    _______,  _______,  _______,  _______,  _______,            _______,          _______,            _______,  _______,  _______,  _______,  _______,
                                             _______,  _______,  _______,          _______,  _______,  _______
 ),
   */
@@ -24,80 +23,80 @@ LAYOUT_moonlander(
     TD_STGA,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,            KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   TD_STGA,
     KC_BSLS,  KC_QUOT,  KC_COMM,  KC_DOT,   KC_P,     KC_Y,     _______,          TD_LOCK,  KC_F,     KC_G,     KC_C,     KC_R,     KC_L,     KC_SLSH,
     KC_MPLY,  HOME_A,   HOME_O,   HOME_E,   HOME_U,   KC_I,     _______,          _______,  KC_D,     HOME_H,   HOME_T,   HOME_N,   HOME_S,   UTL_MNS,
-    SH_OS,    KC_SCLN,  KC_Q,     BASE_J,   BASE_K,   KC_X,                                 KC_B,     BASE_M,   BASE_W,   KC_V,     KC_Z,     SH_OS,  
-    NUMP_TT,  NAVI_TT,  MOUS_TT,  DM_REC1,  _______,            DM_PLY1,          DM_PLY2,            QK_REP,   DM_REC2,  MOUS_TT,  NAVI_TT,  NUMP_TT,  
+    SH_OS,    KC_SCLN,  KC_Q,     BASE_J,   BASE_K,   KC_X,                                 KC_B,     BASE_M,   BASE_W,   KC_V,     KC_Z,     SH_OS,
+    NUMP_TT,  NAVI_TT,  MOUS_TT,  DM_REC1,  _______,            DM_PLY1,          DM_PLY2,            QK_REP,   DM_REC2,  MOUS_TT,  NAVI_TT,  NUMP_TT,
                                             MOU_BSP,  QK_REP,   LGUI_ESC,         KC_RGUI,  NAV_ENT,  KC_SPC
 ),
 [STEN] = LAYOUT_moonlander(
     TD_BAGA,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,          XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  TD_BAGA,
     XXXXXXX,  STN_N1,   STN_N2,   STN_N3,   STN_N4,   STN_N5,   XXXXXXX,          XXXXXXX,  STN_N6,   STN_N7,   STN_N8,   STN_N9,   STN_NA,   STN_NB,
     XXXXXXX,  STN_S1,   STN_TL,   STN_PL,   STN_HL,   STN_ST1,  XXXXXXX,          XXXXXXX,  STN_ST3,  STN_FR,   STN_PR,   STN_LR,   STN_TR,   STN_DR,
-    XXXXXXX,  STN_S2,   STN_KL,   STN_WL,   STN_RL,   STN_ST2,                              STN_ST4,  STN_RR,   STN_BR,   STN_GR,   STN_SR,   STN_ZR,  
-    SA_TAB,   A_TAB,    XXXXXXX,  XXXXXXX,  KC_LCTL,            _______,          _______,            XXXXXXX,  XXXXXXX,  XXXXXXX,  SA_TAB,   A_TAB,   
+    XXXXXXX,  STN_S2,   STN_KL,   STN_WL,   STN_RL,   STN_ST2,                              STN_ST4,  STN_RR,   STN_BR,   STN_GR,   STN_SR,   STN_ZR,
+    SA_TAB,   A_TAB,    XXXXXXX,  XXXXXXX,  KC_LCTL,            _______,          _______,            XXXXXXX,  XXXXXXX,  XXXXXXX,  SA_TAB,   A_TAB,
                                             STN_A,    STN_O,    STN_NC,           STN_NC,  STN_E,   STN_U
 ),
 [NUMP] = LAYOUT_moonlander(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
     KC_NUM,   KC_PSLS,  KC_KP_9,  KC_KP_8,  KC_KP_7,  KC_PAST,  KC_CALC,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  KC_PMNS,  KC_KP_6,  KC_KP_5,  KC_KP_4,  KC_PPLS,  US_EURO,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
-    SH_TOGG,  KC_PCMM,  KC_KP_3,  KC_KP_2,  KC_KP_1,  KC_PDOT,                              _______,  _______,  _______,  _______,  _______,  SH_TOGG,  
-    _______,  _______,  KC_PDOT,  KC_KP_0,  KC_KP_0,            _______,          _______,            _______,  _______,  _______,  _______,  _______,  
+    SH_TOGG,  KC_PCMM,  KC_KP_3,  KC_KP_2,  KC_KP_1,  KC_PDOT,                              _______,  _______,  _______,  _______,  _______,  SH_TOGG,
+    _______,  _______,  KC_PDOT,  KC_KP_0,  KC_KP_0,            _______,          _______,            _______,  _______,  _______,  _______,  _______,
                                             _______,  _______,  QK_LLCK,          _______,  _______,  _______
 ),
 [SYMB] = LAYOUT_moonlander(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  KC_GRV,   KC_LT,    KC_GT,    KC_MINS,  KC_PIPE,  _______,          _______,  KC_CIRC,  KC_LCBR,  KC_RCBR,  KC_EXLM,  KC_DLR,   _______,
     _______,  KC_EXLM,  KC_ASTR,  NAV_SLS,  NAV_EQL,  KC_AMPR,  _______,          _______,  KC_HASH,  KC_LPRN,  KC_RPRN,  KC_SCLN,  KC_DQUO,  _______,
-    _______,  KC_TILD,  KC_PLUS,  KC_LBRC,  KC_RBRC,  KC_PERC,                              KC_AT,    KC_COLN,  KC_COMM,  KC_DOT,   KC_QUOT,  _______,  
-    _______,  _______,  _______,  _______,  _______,            _______,          _______,            _______,  _______,  _______,  _______,  _______,  
+    _______,  KC_TILD,  KC_PLUS,  KC_LBRC,  KC_RBRC,  KC_PERC,                              KC_AT,    KC_COLN,  KC_COMM,  KC_DOT,   KC_QUOT,  _______,
+    _______,  _______,  _______,  _______,  _______,            _______,          _______,            _______,  _______,  _______,  _______,  _______,
                                             _______,  _______,  _______,          _______,  _______,  _______
 ),
 [UTIL] = LAYOUT_moonlander(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          KC_PWR,   KC_SLEP,  _______,  _______,  _______,  _______,  QK_BOOT,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          NOTE_PAD, DT_UP,    _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          VS_CODE,  DT_PRNT,  _______,  _______,  _______,  _______,  _______,
-    AU_TOGG,  _______,  _______,  _______,  _______,  _______,                              DT_DOWN,  _______,  _______,  _______,  _______,  _______,  
-    _______,  _______,  _______,  _______,  _______,            RGBNEXT,          LUMINO,             _______,  _______,  _______,  _______,  _______,  
+    AU_TOGG,  _______,  _______,  _______,  _______,  _______,                              DT_DOWN,  _______,  _______,  _______,  _______,  _______,
+    _______,  _______,  _______,  _______,  _______,            RGBNEXT,          LUMINO,             _______,  _______,  _______,  _______,  _______,
                                             RGBDEF1,  RGBDEF2,  RM_SPDD,          RM_SPDU,  RGBHRND,  RGBHUP
 ),
 [NAVI] = LAYOUT_moonlander(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  SELLUP,   _______,  _______,  _______,          _______,  KC_PGUP,  HOM_SFT,  KC_UP,    END_SFT,  SRCHSEL,  _______,
     _______,  _______,  _______,  KC_LSFT,  _______,  _______,  _______,          _______,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  C_TAB,    _______,
-    _______,  _______,  _______,  SELLINE,  _______,  _______,                              _______,  SELWBAK,  SELWORD,  SA_TAB,   A_TAB,    _______,  
-    _______,  _______,  _______,  _______,  _______,            _______,          _______,            KC_WBAK,  KC_WFWD,  _______,  _______,  _______,  
+    _______,  _______,  _______,  SELLINE,  _______,  _______,                              _______,  SELWBAK,  SELWORD,  SA_TAB,   A_TAB,    _______,
+    _______,  _______,  _______,  _______,  _______,            _______,          _______,            KC_WBAK,  KC_WFWD,  _______,  _______,  _______,
                                             _______,  _______,  _______,          _______,  _______,  _______
 ),
 [MOUS] = LAYOUT_moonlander(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
-    _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______,  OM_W_U,   OM_BTNS,  OM_U,     OM_DBLS,  JIGGLE,   KC_APP,
+    _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______,  OM_W_U,   OM_BTNS,  OM_U,     OM_DBLS,  _______,  KC_APP,
     _______,  OS_LALT,  OS_LGUI,  OS_LSFT,  OS_LCTL,  SRCHSEL,  _______,          _______,  OM_W_D,   OM_L,     OM_D,     OM_R,     OM_FAST,  OM_SLOW,
-    REDO,     UNDO,     CUT,      COPY,     CLPBRD,   PASTE_F,                              OM_RELS,  OM_HLDS,  OM_SEL1,  OM_SEL2,  OM_SEL3,  KC_MPLY,  
-    _______,  _______,  _______,  _______,  _______,            _______,          _______,            OM_BTN4,  OM_BTN5,  _______,  _______,  _______,  
+    REDO,     UNDO,     CUT,      COPY,     CLPBRD,   PASTE_F,                              OM_RELS,  OM_HLDS,  OM_SEL1,  OM_SEL2,  OM_SEL3,  KC_MPLY,
+    _______,  _______,  _______,  _______,  _______,            _______,          _______,            OM_BTN4,  OM_BTN5,  _______,  _______,  _______,
                                             _______,  _______,  _______,          _______,  _______,  OM_BTNS
 ),
 [GAME] = LAYOUT_moonlander(
     TD_BAST,  _______,  _______,  _______,  TD_ALF4,  _______,  _______,          _______,  _______,  _______,  _______,  _______,  _______,  TD_BAST,
     KC_BSPC,  KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,             _______,  _______,  _______,  _______,  _______,  _______,  _______,
     KC_ESC,   KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,             _______,  _______,  _______,  _______,  _______,  _______,  _______,
-    KC_DEL,   KC_LCTL,  KC_Z,     KC_X,     KC_C,     KC_V,                                 _______,  _______,  _______,  _______,  _______,  _______,  
-    XXXXXXX,  _______,  OS_KRIT,  KC_LALT,  KC_B,               KC_ENT,           _______,            _______,  _______,  _______,  _______,  _______,  
+    KC_DEL,   KC_LCTL,  KC_Z,     KC_X,     KC_C,     KC_V,                                 _______,  _______,  _______,  _______,  _______,  _______,
+    XXXXXXX,  _______,  OS_KRIT,  KC_LALT,  KC_B,               KC_ENT,           _______,            _______,  _______,  _______,  _______,  _______,
                                             KC_LSFT,  KC_SPC,   MO_GAMP,          _______,  _______,  _______
 ),
 [GAMP] = LAYOUT_moonlander(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  KC_Y,     KC_O,     KC_I,     KC_U,     KC_P,     KC_Y,             _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  KC_T,     KC_1,     KC_2,     KC_3,     KC_H,     _______,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
-    _______,  KC_J,     KC_K,     KC_L,     KC_M,     KC_N,                                 _______,  _______,  _______,  _______,  _______,  _______,  
-    _______,  _______,  _______,  _______,  _______,            _______,          _______,            _______,  _______,  _______,  _______,  _______,  
+    _______,  KC_J,     KC_K,     KC_L,     KC_M,     KC_N,                                 _______,  _______,  _______,  _______,  _______,  _______,
+    _______,  _______,  _______,  _______,  _______,            _______,          _______,            _______,  _______,  _______,  _______,  _______,
                                             _______,  _______,  _______,          _______,  _______,  _______
 ),
 [KRIT] = LAYOUT_moonlander(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  KR_BRSH7, KR_BRSH8, KR_BRSH9, _______,  _______,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  KR_DUPLL, KR_BRSH4, KR_BRSH5, KR_BRSH6, _______,  _______,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
-    _______,  KR_BRSH0, KR_BRSH1, KR_BRSH2, KR_BRSH3, _______,                              _______,  _______,  _______,  _______,  _______,  _______,  
-    _______,  _______,  _______,  _______,  _______,            _______,          _______,            _______,  _______,  _______,  _______,  _______,  
+    _______,  KR_BRSH0, KR_BRSH1, KR_BRSH2, KR_BRSH3, _______,                              _______,  _______,  _______,  _______,  _______,  _______,
+    _______,  _______,  _______,  _______,  _______,            _______,          _______,            _______,  _______,  _______,  _______,  _______,
                                             _______,  _______,  QK_LLCK,          _______,  _______,  _______
 ),
 };
@@ -209,8 +208,8 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo42, LEADER),
     COMBO(combo43, NEXTSEN),
   };
-  
-  
+
+
   // A cheap pseudorandom generator.
   static uint8_t myrand(void) {
     static uint16_t state = 1;
@@ -222,7 +221,7 @@ combo_t key_combos[COMBO_COUNT] = {
     state *= UINT16_C(36563);
     return state >> 8;
   }
-  
+
   // Tap-hold configuration
   uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
       switch (keycode) {
@@ -232,9 +231,9 @@ combo_t key_combos[COMBO_COUNT] = {
               return TAPPING_TERM;
       }
   }
-  
-  
-  uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record, 
+
+
+  uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
                              uint16_t prev_keycode) {
       if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
           switch (keycode) {
@@ -250,16 +249,16 @@ combo_t key_combos[COMBO_COUNT] = {
       }
       return 0;
   }
-  
-  
+
+
   #ifdef SPECULATIVE_HOLD
   bool get_speculative_hold(uint16_t keycode, keyrecord_t* record) {
     return true;  // Enable for all mods.
   }
   #endif  // SPECULATIVE_HOLD
-  
+
   extern rgb_config_t rgb_matrix_config;
-  
+
 
 #ifdef COMMUNITY_MODULE_PALETTEFX_ENABLE
 static void lighting_set_palette(uint8_t palette) {
@@ -285,12 +284,12 @@ typedef struct {
 } tap;
 
 enum {
-    SINGLE_TAP = 1,      
-    SINGLE_HOLD,         
-    DOUBLE_TAP,          
-    DOUBLE_HOLD,         
-    DOUBLE_SINGLE_TAP,   
-    MORE_TAPS            
+    SINGLE_TAP = 1,
+    SINGLE_HOLD,
+    DOUBLE_TAP,
+    DOUBLE_HOLD,
+    DOUBLE_SINGLE_TAP,
+    MORE_TAPS
 };
 
 static tap dance_state[9];
@@ -478,8 +477,8 @@ static void process_num_lock_alteration(uint16_t keycode, uint16_t numl_keycode,
       register_code16(numl_keycode);
     } else {
       unregister_code16(numl_keycode);
-    }  
-  }  
+    }
+  }
 }
 
 static bool process_quopostrokey(uint16_t keycode, keyrecord_t *record) {
@@ -521,7 +520,7 @@ static bool process_quopostrokey(uint16_t keycode, keyrecord_t *record) {
       within_word = false;
   }
 
-  return true;  
+  return true;
 }
 
 static bool process_dead_key(uint16_t keycode, keyrecord_t *record) {
@@ -561,7 +560,7 @@ static bool process_dead_key(uint16_t keycode, keyrecord_t *record) {
 
     set_mods(mods);
     set_oneshot_mods(oneshot_mods);
-  }  
+  }
   return false; // Skip all further processing of this key
 }
 
@@ -569,31 +568,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_dead_key(keycode, record)) { return false; }
   if (!process_quopostrokey(keycode, record)) { return false; }
 
-  if (record->event.pressed) {
-    static deferred_token token = INVALID_DEFERRED_TOKEN;
-    static report_mouse_t report = {0};
-    if (token) {
-      cancel_deferred_exec(token);
-      token = INVALID_DEFERRED_TOKEN;
-      report = (report_mouse_t){};
-      host_mouse_send(&report);
-    } else if (keycode == JIGGLE) {
-      
-      uint32_t jiggler_callback(uint32_t trigger_time, void* cb_arg) {
-        static const int8_t deltas[32] = {
-          -1, -2, -4, -5, -6, -7, -8, -8, -8, -8, -7, -6, -5, -4, -2, -1,  1,  2,  4,  5,  6,  7,  8,  8, 8,  8,  7,  6,  5,  4,  2,  1
-        };
-        static uint8_t phase = 0;
-        report.x = deltas[phase];
-        report.y = deltas[(phase + 8) & 31];
-        phase = (phase + 1) & 31;
-        host_mouse_send(&report);
-        return 16;
-      }
-
-      token = defer_exec(1, jiggler_callback, NULL);
-    }
-  }
 
   const uint8_t mods = get_mods();
   const uint8_t all_mods = (mods | get_weak_mods()
@@ -632,8 +606,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           register_code16(LSFT(KC_HOME));
         } else {
           unregister_code16(LSFT(KC_HOME));
-        }  
-      }  
+        }
+      }
       return false;
     case END_SFT:
       if (record->tap.count > 0) {
@@ -647,39 +621,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           register_code16(LSFT(KC_END));
         } else {
           unregister_code16(LSFT(KC_END));
-        }  
-      }  
+        }
+      }
       return false;
         case NOTE_PAD:
         if (record->event.pressed) {
           SEND_STRING(SS_LGUI("r")SS_DELAY(50) "notepad" SS_TAP(X_ENTER));
         }
         break;
-        
+
         case VS_CODE:
         if (record->event.pressed) {
           SEND_STRING(SS_LGUI("r")SS_DELAY(50) "code" SS_TAP(X_ENTER));
         }
         break;
-    case KC_PPLS: 
+    case KC_PPLS:
       process_num_lock_alteration(KC_PLUS, KC_PPLS, record);
       return false;
-    case KC_PCMM: 
+    case KC_PCMM:
       process_num_lock_alteration(KC_COMM, KC_PCMM, record);
       return false;
-    case KC_PSLS: 
+    case KC_PSLS:
       process_num_lock_alteration(KC_SLSH, KC_PSLS, record);
       return false;
-    case KC_PEQL: 
+    case KC_PEQL:
       process_num_lock_alteration(KC_EQL, KC_PEQL, record);
       return false;
-    case KC_PAST: 
+    case KC_PAST:
       process_num_lock_alteration(KC_ASTR, KC_PAST, record);
       return false;
-    case KC_PMNS: 
+    case KC_PMNS:
       process_num_lock_alteration(KC_MINS, KC_PMNS, record);
       return false;
-    case KC_PDOT: 
+    case KC_PDOT:
       process_num_lock_alteration(KC_DOT, KC_PDOT, record);
       return false;
     case KC_KP_1:
@@ -826,7 +800,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     return KC_TRNS;  // Defer to default definitions.
 }
 
-const key_override_t next_track_override = 
+const key_override_t next_track_override =
 	ko_make_with_layers_negmods_and_options(
    		MOD_MASK_CTRL,       // Trigger modifiers: ctrl
     	KC_MPLY,             // Trigger key: play/pause
@@ -834,7 +808,7 @@ const key_override_t next_track_override =
     	~0,                  // Activate on all layers
     	MOD_MASK_SA,         // Do not activate when shift or alt are pressed
     	ko_option_no_reregister_trigger); // Specifies that the play key is not registered again after lifting ctrl
-    
+
 const key_override_t prev_track_override = ko_make_with_layers_negmods_and_options(MOD_MASK_CS, KC_MPLY,
 											KC_MPRV, ~0, MOD_MASK_ALT, ko_option_no_reregister_trigger);
 
@@ -852,11 +826,11 @@ const key_override_t brightness_down_override = ko_make_basic(MOD_MASK_CSA, KC_M
 
 
 
-const key_override_t delete_key_override = 
+const key_override_t delete_key_override =
     ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
 
 // Also override for the layer tap backspace key
-const key_override_t delete_key_override_lt = 
+const key_override_t delete_key_override_lt =
     ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, MOU_BSP, KC_DEL, ~0, 0);
 
 // This globally defines all key overrides to be used

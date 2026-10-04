@@ -28,14 +28,14 @@ enum layer_names {
 #define MOU_BSP LT(MOUS, KC_BSPC)
 #define NAV_ENT  LT(NAVI, KC_ENTER)
 
-#define STEN_TT TT(STEN) 
-#define NUMP_TT TT(NUMP) 
-#define UTIL_TT TT(UTIL) 
-#define NAVI_TT TT(NAVI) 
-#define MOUS_TT TT(MOUS) 
-#define GAME_TT TT(GAME) 
-#define GAMP_TT TT(GAMP) 
-#define KRIT_TT TT(KRIT) 
+#define STEN_TT TT(STEN)
+#define NUMP_TT TT(NUMP)
+#define UTIL_TT TT(UTIL)
+#define NAVI_TT TT(NAVI)
+#define MOUS_TT TT(MOUS)
+#define GAME_TT TT(GAME)
+#define GAMP_TT TT(GAMP)
+#define KRIT_TT TT(KRIT)
 
 // Right hand home row
 #define HOME_A MT(MOD_LALT, KC_A)
@@ -113,7 +113,6 @@ enum custom_keycodes {
   JOINLN,
   SRCHSEL,
   QUOP,
-  JIGGLE,
   RGBNEXT,
   RGBHUP,
   RGBHRND,
@@ -139,7 +138,7 @@ enum tap_dance_codes {
 #define TD_EDMO  TD(TDEDMO)
 #define TD_ALF4  TD(TDALF4)
 
-#else 
+#else
 
 #define TD_STGA  TG(STEN)
 #define TD_BAGA  TG(BASE)
@@ -170,7 +169,6 @@ KEYCODE_STRING_NAMES_USER(
   KEYCODE_STRING_NAME(JOINLN),
   KEYCODE_STRING_NAME(SRCHSEL),
   KEYCODE_STRING_NAME(QUOP),
-  KEYCODE_STRING_NAME(JIGGLE),
   KEYCODE_STRING_NAME(RGBNEXT),
   KEYCODE_STRING_NAME(RGBHUP),
   KEYCODE_STRING_NAME(RGBHRND),
