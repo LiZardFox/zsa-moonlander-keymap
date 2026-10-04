@@ -25,11 +25,11 @@ LAYOUT_moonlander(
   */
  [BASE] = LAYOUT_moonlander(
     TD_STGA,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,            KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   TD_STGA,
-    KC_BSLS,  QUOP,     LEADER,   KC_DOT,   KC_P,     KC_Y,     _______,          TD_LOCK,  KC_F,     KC_G,     KC_C,     KC_R,     KC_L,     KC_SLSH,
-    NAV_EQL,  HOME_A,   HOME_O,   HOME_E,   HOME_U,   KC_I,     _______,          _______,  KC_D,     HOME_H,   HOME_T,   HOME_N,   HOME_S,   UTL_MNS,
+    KC_BSLS,  KC_QUOT,  KC_COMM,  KC_DOT,   KC_P,     KC_Y,     _______,          TD_LOCK,  KC_F,     KC_G,     KC_C,     KC_R,     KC_L,     KC_SLSH,
+    KC_MPLY,  HOME_A,   HOME_O,   HOME_E,   HOME_U,   KC_I,     _______,          _______,  KC_D,     HOME_H,   HOME_T,   HOME_N,   HOME_S,   UTL_MNS,
     SH_OS,    KC_SCLN,  KC_Q,     BASE_J,   BASE_K,   KC_X,                                 KC_B,     BASE_M,   BASE_W,   KC_V,     KC_Z,     SH_OS,  
-    NUMP_TT,  NAVI_TT,  MOUS_TT,  DM_REC1,  QK_AREP,            DM_PLY1,          DM_PLY2,            QK_REP,   DM_REC2,  MOUS_TT,  NAVI_TT,  NUMP_TT,  
-                                            MOU_BSP,  OS_LSFT,  LGUI_ESC,         KC_RGUI,  NAV_ENT,  KC_SPC
+    NUMP_TT,  NAVI_TT,  MOUS_TT,  DM_REC1,  _______,            DM_PLY1,          DM_PLY2,            QK_REP,   DM_REC2,  MOUS_TT,  NAVI_TT,  NUMP_TT,  
+                                            MOU_BSP,  QK_REP,   LGUI_ESC,         KC_RGUI,  NAV_ENT,  KC_SPC
 ),
 [STEN] = LAYOUT_moonlander(
     TD_BAGA,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,          XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  TD_BAGA,
@@ -41,16 +41,16 @@ LAYOUT_moonlander(
 ),
 [NUMP] = LAYOUT_moonlander(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
-    KC_NUM,   KC_PSLS,  KC_KP_7,  KC_KP_8,  KC_KP_9,  KC_KP_0,  KC_CALC,          KC_CALC,  KC_NUM,   KC_KP_7,  KC_KP_8,  KC_KP_9,  KC_KP_0,  KC_PSLS,
-    KC_PMNS,  KC_PAST,  KC_KP_4,  KC_KP_5,  KC_KP_6,  KC_PDOT,  CR_EURO,          CR_EURO,  KC_PDOT,  KC_KP_4,  KC_KP_5,  KC_KP_6,  KC_PAST,  KC_PMNS,
-    KC_PENT,  KC_PPLS,  KC_KP_1,  KC_KP_2,  KC_KP_3,  KC_COMM,                              KC_COMM,  KC_KP_1,  KC_KP_2,  KC_KP_3,  KC_PPLS,  KC_PENT,  
-    _______,  _______,  KC_KP_0,  KC_KP_0,  KC_PDOT,            _______,          _______,            KC_KP_0,  KC_KP_0,  KC_PDOT,  _______,  _______,  
-                                            _______,  _______,  _______,          _______,  _______,  _______
+    KC_NUM,   KC_PSLS,  KC_KP_9,  KC_KP_8,  KC_KP_7,  KC_KP_0,  KC_CALC,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
+    KC_PMNS,  KC_PAST,  KC_KP_4,  KC_KP_5,  KC_KP_6,  KC_PDOT,  US_EURO,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
+    KC_PENT,  KC_PPLS,  KC_KP_3,  KC_KP_2,  KC_KP_1,  KC_COMM,                              _______,  _______,  _______,  _______,  _______,  _______,  
+    _______,  _______,  KC_KP_0,  KC_KP_0,  KC_PDOT,            _______,          _______,            _______,  _______,  _______,  _______,  _______,  
+                                            _______,  SH_TOGG,  QK_LLCK,          _______,  SH_TOGG,  _______
 ),
 [SYMB] = LAYOUT_moonlander(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  KC_GRV,   KC_LT,    KC_GT,    KC_MINS,  KC_PIPE,  _______,          _______,  KC_CIRC,  KC_LCBR,  KC_RCBR,  KC_EXLM,  KC_DLR,   _______,
-    _______,  KC_EXLM,  KC_ASTR,  KC_EQL,   KC_AMPR,  KC_PDOT,  _______,          _______,  KC_HASH,  KC_LPRN,  KC_RPRN,  KC_SCLN,  KC_DQUO,  _______,
+    _______,  KC_EXLM,  KC_ASTR,  NAV_SLS,  NAV_EQL,  KC_AMPR,  _______,          _______,  KC_HASH,  KC_LPRN,  KC_RPRN,  KC_SCLN,  KC_DQUO,  _______,
     _______,  KC_TILD,  KC_PLUS,  KC_LBRC,  KC_RBRC,  KC_PERC,                              KC_AT,    KC_COLN,  KC_COMM,  KC_DOT,   KC_QUOT,  _______,  
     _______,  _______,  _______,  _______,  _______,            _______,          _______,            _______,  _______,  _______,  _______,  _______,  
                                             _______,  _______,  _______,          _______,  _______,  _______
@@ -65,9 +65,9 @@ LAYOUT_moonlander(
 ),
 [NAVI] = LAYOUT_moonlander(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______,  _______,  _______,  _______,  _______,  _______,  _______,
-    _______,  _______,  _______,  SELLUP,   JOINLN,   _______,  _______,          _______,  KC_PGUP,  HOM_SFT,  KC_UP,    END_SFT,  _______,  _______,
-    _______,  _______,  SELWBAK,  SELLINE,  SELWORD,  _______,  _______,          _______,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  _______,  _______,
-    _______,  _______,  _______,  _______,  _______,  _______,                              _______,  SA_TAB,   A_TAB,    SC_TAB,   C_TAB,    _______,  
+    _______,  _______,  _______,  _______,  _______,  _______,  _______,          _______,  KC_PGUP,  HOM_SFT,  KC_UP,    END_SFT,  SRCHSEL,  _______,
+    _______,  _______,  _______,  KC_LSFT,  SELLINE,  _______,  _______,          _______,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  C_TAB,    _______,
+    _______,  _______,  _______,  _______,  _______,  _______,                              _______,  SELWBAK,  SELWORD,  SA_TAB,   A_TAB,    _______,  
     _______,  _______,  _______,  _______,  _______,            _______,          _______,            KC_WBAK,  KC_WFWD,  _______,  _______,  _______,  
                                             _______,  _______,  _______,          _______,  _______,  _______
 ),
@@ -169,10 +169,10 @@ const uint16_t PROGMEM combo43[] = { HOME_O, HOME_E, HOME_T, HOME_N, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, EMOJI),
     COMBO(combo1, A_TAB),
-    COMBO(combo2, GER_AE),
-    COMBO(combo3, GER_OE),
-    COMBO(combo4, GER_UE),
-    COMBO(combo5, GER_SZ),
+    COMBO(combo2, US_ADIA),
+    COMBO(combo3, US_ODIA),
+    COMBO(combo4, US_UDIA),
+    COMBO(combo5, US_SS),
     COMBO(combo6, KC_MEDIA_PLAY_PAUSE),
     COMBO(combo7, KC_4),
     COMBO(combo8, KC_5),
@@ -742,12 +742,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }  
       }  
       return false;
-        case CR_EURO:
-        if (record->event.pressed) {
-          process_alt_num_key("00128");
-        }
-        return false;
-        
         case NOTE_PAD:
         if (record->event.pressed) {
           SEND_STRING(SS_LGUI("r")SS_DELAY(50) "notepad" SS_TAP(X_ENTER));
@@ -759,30 +753,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           SEND_STRING(SS_LGUI("r")SS_DELAY(50) "code" SS_TAP(X_ENTER));
         }
         break;
-        
-        case GER_SZ:
-        if (record->event.pressed) {
-          process_alt_num_key("0223");
-        }
-        return false;
-        
-        case GER_AE:
-        if (record->event.pressed) {
-          process_alt_num_key_with_shift("0228", "0196");
-        }
-        return false;
-      
-        case GER_OE:
-        if (record->event.pressed) {
-          process_alt_num_key_with_shift("0246", "0214");
-        }
-        return false;
-        
-        case GER_UE:
-        if (record->event.pressed) {
-          process_alt_num_key_with_shift("0252", "0220");
-        }
-        return false;
     case KC_PPLS: 
       process_num_lock_alteration(KC_PLUS, KC_PPLS, record);
       return false;
@@ -861,21 +831,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         // Mac users, change LCTL to LGUI.
         SEND_STRING(SS_LCTL("ct") SS_DELAY(200) SS_LCTL("v") SS_TAP(X_ENTER));
-      }
-      return false;
-    case BRACES:  // Types [], {}, or <> and puts cursor between braces.
-      if (record->event.pressed) {
-        clear_oneshot_mods();  // Temporarily disable mods.
-        unregister_mods(MOD_MASK_CSAG);
-        if (shift_mods) {
-          SEND_STRING("{}");
-        } else if (all_mods & MOD_MASK_CTRL) {
-          SEND_STRING("<>");
-        } else {
-          SEND_STRING("[]");
-        }
-        tap_code(KC_LEFT);  // Move cursor between braces.
-        register_mods(mods);  // Restore mods.
       }
       return false;
 #ifdef COMMUNITY_MODULE_PALETTEFX_ENABLE

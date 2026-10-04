@@ -1,5 +1,3 @@
-// default for leader when nothing else is pressed
-SEQ_KEY(leader_default, (), KC_COMMA)
 
 // pairs
 SEQ_STR(tag,  (KC_A), "<>" SS_TAP(X_LEFT))
