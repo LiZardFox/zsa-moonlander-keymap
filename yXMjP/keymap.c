@@ -511,53 +511,6 @@ static void tap_kp_code(char code[5]){
   }
 }
 
-static void process_alt_num_key_with_shift(char code[5], char shiftedCode[5]){
-  uint8_t mods = get_mods();
-  uint8_t oneshot_mods = get_oneshot_mods();
-  bool num_lock = host_keyboard_led_state().num_lock;
-  bool caps = host_keyboard_led_state().caps_lock || is_caps_word_on();
-  bool shift = ((mods | oneshot_mods ) & MOD_MASK_SHIFT)!=0;
-  if (!num_lock)
-  {
-    tap_code(KC_NUM);
-  }
-  clear_oneshot_mods();
-  clear_mods();
-  register_code(KC_LALT);
-  if(caps != shift){
-    tap_kp_code(shiftedCode);
-  }
-  else
-  {
-    tap_kp_code(code);
-  }
-  unregister_code(KC_LALT);
-  set_mods(mods);
-  if (!num_lock)
-  {
-    tap_code(KC_NUM);
-  }
-}
-
-static void process_alt_num_key(char code[5]){
-  uint8_t mods = get_mods();
-  bool num_lock = host_keyboard_led_state().num_lock;
-  if (!num_lock)
-  {
-    tap_code(KC_NUM);
-  }
-  clear_oneshot_mods();
-  clear_mods();
-  register_code(KC_LALT);
-  tap_kp_code(code);
-  unregister_code(KC_LALT);
-  set_mods(mods);
-  if (!num_lock)
-  {
-    tap_code(KC_NUM);
-  }
-}
-
 static void process_num_lock_alteration(uint16_t keycode, uint16_t numl_keycode, keyrecord_t *record){
   if (!host_keyboard_led_state().num_lock) {
     if (record->event.pressed) {
@@ -976,9 +929,6 @@ bool caps_word_press_user(uint16_t keycode) {
         case KC_BSPC:
         case KC_DEL:
         case KC_UNDS:
-        case GER_AE:
-        case GER_OE:
-        case GER_UE:
             return true;
 
         default:
