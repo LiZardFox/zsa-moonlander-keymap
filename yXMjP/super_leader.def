@@ -24,7 +24,6 @@ SEQ_STR(sqlw, (KC_S, KC_W), "WHERE ")
 // Shortcuts
 SEQ_STR(sacp, (KC_S, KC_A), SS_LCTL("ac"))
 SEQ_STR(rpla, (KC_R, KC_A), SS_LCTL("av"))
-SEQ_KEY(ctlv, (KC_V),       C(KC_V))
 
 // QMK
 SEQ_KEY(dfu, (KC_D, KC_F, KC_U), QK_BOOT)
@@ -38,3 +37,17 @@ SEQ_STR(konb, (KC_S, KC_K, KC_B), "KonBooba")
 SEQ_STR(otsu, (KC_S, KC_O),       "Otsu")
 SEQ_STR(otsn, (KC_S, KC_O, KC_N), "OtsuNanoyo")
 SEQ_STR(wrai, (KC_S, KC_W, KC_R), "Welcome Raiders")
+
+// programms
+SEQ_STR(code, (KC_V, KC_C), SS_LGUI("r")SS_DELAY(50) "code" SS_TAP(X_ENTER))
+SEQ_STR(note, (KC_N, KC_P), SS_LGUI("r")SS_DELAY(50) "notepad" SS_TAP(X_ENTER))
+
+// game
+SEQ_STR(wuwa, (KC_W, KC_U, KC_W), "Wuthering Waves")
+SEQ_STR(zzz, (KC_Z, KC_Z, KC_Z), "Zenless Zone Zero")
+SEQ_STR(hsr, (KC_H, KC_S, KC_R), "Honkai Star Rail")
+// modded
+SEQ_STR(mwuwa, (KC_M, KC_W, KC_U, KC_W), "WWMI")
+SEQ_STR(mzzz, (KC_M, KC_Z, KC_Z, KC_Z), "ZZMI")
+SEQ_STR(mhsr, (KC_M, KC_H, KC_S, KC_R), "SRMI")
+
